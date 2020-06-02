@@ -4,6 +4,11 @@
 
 # 卸载旧版本
 sudo apt-get remove docker docker-engine docker.io containerd runc
+# 配置公钥
+	# 国外
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	# 国内
+	curl -fsSL https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
 # 配置docker仓库地址
     # 国外仓库
     sudo add-apt-repository \
