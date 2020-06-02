@@ -129,7 +129,7 @@ docker cp						# 拷贝文件到主机
 
 ##### 更多
 
-![img](file:///home/jason/%E5%9B%BE%E7%89%87/docker%E5%91%BD%E4%BB%A4.png)
+![docker命令](/home/jason/文档/publicDocs/mydoc/docker.assets/docker命令.png)
 
 #### 启动es
 
