@@ -252,7 +252,7 @@ docker build -f Dockerfile -t imageName .
 -t  # tag/name
 ```
 
-eg:
+eg1:
 
 ```shell
 docker build -f dockerfile -t myubuntu01 .
@@ -282,7 +282,7 @@ REPOSITORY          TAG                 IMAGE ID            CREATED             
 myubuntu01          latest              75ad2dcc7209        About a minute ago   73.9MB
 ```
 
-dockerfile常用命令：
+##### dockerfile常用命令：
 
 ```shell
 FROM		# 以谁为基础来构建镜像
@@ -296,6 +296,106 @@ CMD			# 容器启动时要运行的命令 只有最后一个会生效(总是被�
 ENTRYPOINT	# 容器启动时要运行的命令 可追加
 COPY		# 类是ADD,拷贝文件
 ENV			# 设置环境变量
+```
+
+##### eg2: 本地部署jar
+
+###### 1，创建一个jdk8的环境
+
+编写dockerfile
+
+```shell
+# 在Dockerfile文件夹下创建myoralcejdk8文件
+vim Dockerfile/myoralcejdk8
+```
+
+输入以下内容
+
+```shell
+# 基于ubuntu 构建
+FROM ubuntu
+# 作者信息
+MAINTAINER cwj<1980647842@qq.com>
+# 添加 oraclejdk8 压缩包到目录：/usr/local
+ADD jdk-8u251-linux-x64.tar.gz /usr/local/
+# 设置环境变量
+ENV JAVA_HOME=/usr/local/jdk1.8.0_251
+ENV JRE_HOME=${JAVA_HOME}/jre  
+ENV CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib  
+ENV PATH=${JAVA_HOME}/bin:$PATH
+```
+
+创建镜像
+
+```shell
+docker build -t myjdk8 -f myoralcejdk8 .
+```
+
+名为 myoralcejdk8 的镜像已经创建好了:
+
+```shell
+chen@chen-utuntu:~/Dockerfile$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+myoralcejdk8        latest              d7109f546208        3 days ago          480MB
+ubuntu              latest              1d622ef86b13        6 weeks ago         73.9MB
+```
+
+###### 2，基于myoralcejdk8来创建我们的jar运行的镜像：
+
+```shell
+# 编写Dockerfile
+vim common-run-jar
+```
+
+填写以下内容
+
+```shell
+FROM myoralcejdk8
+MAINTAINER chenwujie<1980647842@qq.com>
+# 创建/opt/settings/ 用于apollo配置文件
+RUN mkdir /opt/settings/
+# 存放我们的jar程序
+RUN mkdir /myjars/
+# 在启动程序时要运行的命令
+CMD ["nohup","java","-jar","/myjars/app.jar","&"]
+```
+
+创建镜像
+
+```shell
+docker build -t common-run-jar -f common-run-jar .
+```
+
+查看镜像
+
+```shell
+chen@chen-utuntu:~/Dockerfile$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+common-run-jar      latest              3e695695e1ef        2 hours ago         480MB
+myoralcejdk8        latest              d7109f546208        3 days ago          480MB
+ubuntu              latest              1d622ef86b13        6 weeks ago         73.9MB
+
+```
+
+###### 3，运行common-run-jar容器
+
+```shell
+docker run -d --name acs -p 8080:8080 common-run-jar
+```
+
+###### 4，拷贝文件，重新启动容器acs
+
+```shell
+# 第3部虽成功启动容器，但并未成功运行jar;
+# 需要停止容器acs,拷贝jar 到容器acs:/myjars下，并命名为app.jar;
+# 再启动容器acs;
+docker stop acs && docker cp ~/jars/industrial-park-acs-1.0.0.jar acs:/myjars/app.jar && docker start acs
+```
+
+5，测试是否运行成功
+
+```shell
+curl localhost:8080/**/
 ```
 
 
