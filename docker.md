@@ -24,6 +24,13 @@ sudo apt-get remove docker docker-engine docker.io containerd runc
 # 安装
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+# 加入用户组
+创建docker用户组
+sudo groupadd docker
+将用户添加到docker用户组
+sudo usermod -aG docker ${USER}
+
 # 启动docker服务
 systemctl start docker
 # 查看版本信息
@@ -350,7 +357,7 @@ vim common-run-jar
 填写以下内容
 
 ```shell
-FROM myoralcejdk8
+FROM myjdk8
 MAINTAINER chenwujie<1980647842@qq.com>
 # 创建/opt/settings/ 用于apollo配置文件
 RUN mkdir /opt/settings/
