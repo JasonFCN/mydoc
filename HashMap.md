@@ -24,11 +24,7 @@
 
 ##### 查询性能：
 
-数组 > 二叉树 > 哈希表 > 链表
-
-***疑问**：那为什么不使用二叉树代替链表？*
-
-二叉树结构相对于链表，构造极其复杂！
+数组 > 哈希表 > 二叉树 >  链表
 
 #### 字段：
 
@@ -51,9 +47,21 @@ final float loadFactor;
 
 ##### 1. 构造器：
 
+###### 无参构造器：
+
+```java
+public HashMap() {
+    this.loadFactor = DEFAULT_LOAD_FACTOR; // all other fields defaulted
+}
+```
+
 ###### 有参构造器：
 
 ```java
+public HashMap(int initialCapacity) {
+    this(initialCapacity, DEFAULT_LOAD_FACTOR);
+}
+
 public HashMap(int initialCapacity, float loadFactor) {
     if (initialCapacity < 0)
         throw new IllegalArgumentException("Illegal initial capacity: " +
@@ -68,23 +76,13 @@ public HashMap(int initialCapacity, float loadFactor) {
 }
 ```
 
-###### 无参构造器：
-
-```java
-public HashMap() {
-    this.loadFactor = DEFAULT_LOAD_FACTOR; // all other fields defaulted
-}
-// why "all other fields defaulted"? threshold=?
-// 在接下来的代码中讨论
-```
-
 ###### 求目标容量:
 
 ```java
 static final int tableSizeFor(int cap) {
     int n = cap - 1;
     n |= n >>> 1;
-    n |= n >>> 2
+    n |= n >>> 2;
     n |= n >>> 4;
     n |= n >>> 8;
     n |= n >>> 16;
@@ -92,9 +90,9 @@ static final int tableSizeFor(int cap) {
 }
 ```
 
-思考：
+思路：
 
-给定一个正整数，求大于它的最小2的幂的数。如果换成二进制的思维：
+给定一个正整数，求大于等于它的最小2的幂的数。如果换成二进制的思维：
 
 给定一个包含1的数，如 ：0100 1000 1010，目标数等于：0111 1111 1111 + 1 = 1000 0000 0000
 
@@ -116,7 +114,7 @@ n |= n >>> 4;		 n = 0111 1111 1XXX
 
 n |= n >>> 8;		 n = 0111 1111 1111
 
-n |= n >>> 16;		 n = 0111 1111 1111
+n |= n >>> 16;	  n = 0111 1111 1111
 
 ##### 2. 添加：
 
@@ -140,20 +138,20 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
         Node<K,V> e; K k;
         if (p.hash == hash &&
             ((k = p.key) == key || (key != null && key.equals(k))))
-            // 当该下标有值，且（新k与旧key相等或equals相等）。则替换旧值value;
+            // 当该桶位有值，且（新k与旧key相等或equals相等）。则替换旧值value;
             e = p;
         else if (p instanceof TreeNode)
             // 如果当前节点是 TreeNode，则添加到红黑树结构中
             e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
         else {
-            // 如果当前节点hash相同，equals不相等
+            // 如果当前桶位的k != key并且 k.equals(key)不相等
             for (int binCount = 0; ; ++binCount) {
                 // 如果当前节点的下一节点为null，则当前的下一节点指向生成的新节点
                 if ((e = p.next) == null) {
                     p.next = newNode(hash, key, value, null);
                     // TREEIFY_THRESHOLD = 8
                     if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
-                        treeifyBin(tab, hash);   // 尝试树化
+                        treeifyBin(tab, hash);   // 当链表长度> TREEIFY_THRESHOLD时，尝试树化
                     break;
                 }
                 if (e.hash == hash &&
@@ -223,11 +221,9 @@ static final int hash(Object key) {
 i = (n - 1) & hash
 ```
 
-思路：我们计算过来的hash 保证了原 **hashcode** 的分布特征，但要映射到特定长度的数组下标，如何也能保证它原来的分布特征呢？最好的办法是，不做运算，就用hash本身。由于hash值远远大于table长度，我们可以只取hash的后几位就可以了。这就需要用到上述的算法特性了。
+思路：
 
-与1进行与运算，只会得到它本身。所以(111111...111)n & hash 就等于hash的后n位的hash值。
-
-所以才规定table长度要为2的幂。
+利用 n - 1 作为掩码 来计算出hash的后n位 n为2的m次幂时，n - 1 才是m位的1。
 
 ##### 5. 扩容
 
@@ -272,6 +268,7 @@ final Node<K,V>[] resize() {
                 if (e.next == null)
                     newTab[e.hash & (newCap - 1)] = e;
                 else if (e instanceof TreeNode)
+                    // 对树中结点重新分配到新桶位
                     ((TreeNode<K,V>)e).split(this, newTab, j, oldCap);
                 else { // preserve order
                     Node<K,V> loHead = null, loTail = null;
@@ -279,14 +276,14 @@ final Node<K,V>[] resize() {
                     Node<K,V> next;
                     do {
                         next = e.next;
-                        if ((e.hash & oldCap) == 0) {
+                        if ((e.hash & oldCap) == 0) {// 桶位不变，生成低位链表loHead
                             if (loTail == null)
                                 loHead = e;
                             else
                                 loTail.next = e;
                             loTail = e;
                         }
-                        else {
+                        else {// 桶位改变，生成高位链表
                             if (hiTail == null)
                                 hiHead = e;
                             else
@@ -296,11 +293,11 @@ final Node<K,V>[] resize() {
                     } while ((e = next) != null);
                     if (loTail != null) {
                         loTail.next = null;
-                        newTab[j] = loHead;
+                        newTab[j] = loHead; // 低位链表放在原桶位
                     }
                     if (hiTail != null) {
                         hiTail.next = null;
-                        newTab[j + oldCap] = hiHead;
+                        newTab[j + oldCap] = hiHead;// 高位链表放在原桶位 + oldCap
                     }
                 }
             }
@@ -337,7 +334,7 @@ final void treeifyBin(Node<K,V>[] tab, int hash) {
 }
 ```
 
-##### 7. 去树化
+##### 7. 对树种节点分成两组，一组维持原桶位不变，一组被分配到原桶位+ oldCap处
 
 ```java
 final void split(HashMap<K,V> map, Node<K,V>[] tab, int index, int bit) {
