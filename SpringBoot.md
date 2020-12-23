@@ -63,32 +63,45 @@ public @interface EnableAutoConfiguration {
 
 #### 支持java8时间API
 
-```java
-package com.cwj.config;
+##### 	**serializer**/**deserializer**
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+配置java.util.Date 与java.time.LocalDateTIme的**serializer**/**deserializer**：
+
+```java
+package com.cwj.demo2.config;
+
 import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
 import com.fasterxml.jackson.databind.ser.std.DateSerializer;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+/**
+ * @author chenwujie
+ * @date 2020-12-10 11:00
+ */
 @Configuration
 public class LocalDateTimeSerializerConfig {
-
     @Value("${spring.jackson.date-format:yyyy-MM-dd HH:mm:ss}")
     private String pattern;
+
+    @Bean
+    public DateSerializer dateSerializer() {
+        return new DateSerializer(false, new SimpleDateFormat(pattern));
+    }
+
+    @Bean
+    public DateDeserializers.DateDeserializer dateDeserializer() {
+        return new DateDeserializers.DateDeserializer(DateDeserializers.DateDeserializer.instance, new SimpleDateFormat(pattern), pattern);
+    }
 
     @Bean
     public LocalDateTimeSerializer localDateTimeSerializer() {
@@ -96,33 +109,39 @@ public class LocalDateTimeSerializerConfig {
     }
 
     @Bean
-    public DateSerializer dateSerializer() {
-        return new DateSerializer(true, new SimpleDateFormat(pattern));
+    public LocalDateTimeDeserializer localDateTimeDeserializer() {
+        return new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(pattern));
     }
 
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
         return builder -> builder
                 .serializerByType(LocalDateTime.class, localDateTimeSerializer())
-//                .serializerByType(Date.class, dateSerializer())
+                .deserializerByType(LocalDateTime.class, localDateTimeDeserializer())
+                .serializerByType(Date.class, dateSerializer())
+                .deserializerByType(Date.class, dateDeserializer())
                 ;
-    }
-
-    @Bean
-    public ObjectMapper serializingObjectMapper() {
-        JavaTimeModule module = new JavaTimeModule();
-        LocalDateTimeDeserializer dateTimeDeserializer = new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-//        MyLocalDateTimeDeserializer myLocalDateTimeDeserializer = new MyLocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        DateDeserializers.DateDeserializer deserializer = new DateDeserializers.DateDeserializer(DateDeserializers.DateDeserializer.instance, new SimpleDateFormat(pattern), pattern);
-        module.addDeserializer(LocalDateTime.class, dateTimeDeserializer);
-        module.addSerializer(LocalDateTime.class, localDateTimeSerializer());
-        module.addSerializer(Date.class, DateSerializer.instance.withFormat(false, new SimpleDateFormat(pattern)));
-        module.addDeserializer(Date.class, deserializer);
-        return Jackson2ObjectMapperBuilder.json().modules(module)
-                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS).build();
     }
 }
 ```
+
+##### 	Converter配置：
+
+​	在SpringBoot2.3+:
+
+```properties
+spring.mvc.format.date-time=yyyy-MM-dd HH:mm:ss
+spring.mvc.format.date=yyyy-MM-dd
+spring.mvc.format.time=HH:mm:ss
+```
+
+​	官方文档说明：
+
+![image-20201223141519511](SpringBoot.assets/image-20201223141519511.png)
+
+​	在SpringBoot2.3以下版本：
+
+​	通过向IOC容器注入Converter的方式：
 
 ```java
 package com.cwj.config;
@@ -173,9 +192,11 @@ public class DateConverterConfig {
 }
 ```
 
-代码应用：
 
-**controller:**
+
+##### 	代码应用：
+
+###### 		**controller:**
 
 ```java
 @ResponseBody
@@ -206,13 +227,13 @@ static class Data{
 }
 ```
 
-**mapper.java**
+###### **mapper.java**
 
 ```java
 List<Person> getList(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 ```
 
-**mapper.xml**
+###### **mapper.xml**
 
 ```xml
 <select id="getList" resultType="com.cwj.demo2.model.Person">
@@ -229,7 +250,7 @@ List<Person> getList(@Param("startDate") LocalDate startDate, @Param("endDate") 
     </select>
 ```
 
-**请求：**
+###### **请求：**
 
 ```http
 ###
@@ -242,17 +263,17 @@ Content-Type: application/json
 }
 ```
 
-**debug：**
+###### **debug：**
 
 ![image-20201210155126878](SpringBoot.assets/image-20201210155126878.png)
 
 ![image-20201210155207152](SpringBoot.assets/image-20201210155207152.png)
 
-**返回json:**
+###### **返回json:**
 
 ![image-20201210155309731](SpringBoot.assets/image-20201210155309731.png)
 
-数据库person表：
+###### 数据库person表：
 
 CREATE TABLE `person` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -638,7 +659,7 @@ public class Data {
    }
    ```
 
-#### 日志框架：
+#### 日志框架配置：
 
 **logback-spring.xml**
 
