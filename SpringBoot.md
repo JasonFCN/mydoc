@@ -275,6 +275,7 @@ Content-Type: application/json
 
 ###### 数据库person表：
 
+```txt
 CREATE TABLE `person` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(16) DEFAULT NULL,
@@ -284,6 +285,7 @@ CREATE TABLE `person` (
   `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4;
+```
 
 数据：
 
