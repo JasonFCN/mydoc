@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>目录导航</title>
+</head>
+<body>
+    <a href="https://www.cnblogs.com/runningTurtle/p/7088125.html">java IO流学习总结</a><br/>
+    <a href="https://www.cnblogs.com/goody9807/p/6425399.html">java最近5年183个Java面试问题列表</a><br/>
+    <a href="https://www.cnblogs.com/leihuazhe/p/7735416.html">Java异常总结和Spring事务处理</a><br/>
+    <a href="https://blog.csdn.net/qq_34337272/article/details/80349017">Java NIO之拥抱Path和Files</a><br/>
+    <a href="https://blog.csdn.net/xingjing1226/article/details/81977129">Java线程状态</a><br/>
+    <a href="https://www.cnblogs.com/gujiande/p/9488462.html">Java线程池种类及其特点</a><br/>
+    <a href="https://blog.csdn.net/u011389515/article/details/80656813">Java线程池状态</a><br/>
+    <a href="https://www.cnblogs.com/takumicx/p/9338983.html">ReentrantLock,synchronized的区别</a><br/>
+    <a href="https://www.cnblogs.com/steven520213/p/8005258.html">TCP,UDP协议</a><br/>
+    <a href="http://c.biancheng.net/design_pattern/">23种设计模式</a><br/>
+    <a href="https://blog.csdn.net/it_man/article/details/5074371">事务</a><br/>
+    <a href="https://www.cnblogs.com/gxc6/p/9544563.html">SpringMVC运行流程</a><br/>
+    <a href="https://www.cnblogs.com/hcw110/p/9786451.html">SpringBoot是什么</a><br/>
+    <a href="https://www.cnblogs.com/aeolian/p/9229149.html">Mybatis分页方式</a><br/>
+    <a href="https://blog.csdn.net/java_zyq/article/details/80022391">消息中间件对比</a><br/>
+    rabbitmq有哪些重要的角色？none,management,policymaker,monitoring,administrator.
+    <a href="https://www.cnblogs.com/likehua/p/3999538.html">kafka入门</a><br/>
+    <a href="https://www.cnblogs.com/knowledgesea/p/3667395.html">数据库三范式</a><br/>
+    <a href="https://blog.csdn.net/nanxiaotao/article/details/80412196">mysql，oracle事务级别</a><br/>
+    事务隔离级别：<br/>
+    A） 修改时允许修改（丢失更新）<br/>
+    B） 修改时允许读取（脏读）<br/>
+    C) 读取时允许修改（不可重复读）<br/>
+    D) 读取时允许插入（幻读）<br/>
+    <a href="https://www.cnblogs.com/zhouyusheng/p/8038224.html">Mysql性能优化</a><br/>
+    <a href="https://www.cnblogs.com/dukuan/p/9132600.html">Redis应用场景</a><br/>
+    <a href="https://www.cnblogs.com/JavaBlackHole/p/7726195.html">redis 和 memecache 有什么区别</a><br/>
+    <a href="https://www.cnblogs.com/fengli9998/p/8630513.html">缓存击穿，雪崩，热点key</a><br/>
+    <a href="https://www.cnblogs.com/AndyAo/p/8135980.html">Redis持久化</a><br/>
+    <a href="https://blog.csdn.net/xu768840497/article/details/79175335">类加载机制与双亲委派模型</a><br/>
+    <a href="https://www.cnblogs.com/aspirant/p/8662690.html">垃圾回收机制总结</a><br/>
+    <a href="https://www.cnblogs.com/aflyun/p/10575740.html">java 内存模型</a><br/>
+    <a href="https://www.cnblogs.com/haitaofeiyang/p/7811311.html">java垃圾收集器</a><br/>
+    <a href="https://www.cnblogs.com/butterfly100/p/9175673.html">java内存管理</a><br/>
+    <a href="https://www.cnblogs.com/boothsun/p/8970952.html">Mysql索引原理</a><br/>
+    <a href="https://www.cnblogs.com/liqiangchn/p/9066686.html">Mysql存储引擎</a><br/>
+    <a href="https://www.cnblogs.com/wenbronk/p/7819224.html">MYCAT介绍</a><br/>
+    <a href="http://c.biancheng.net/design_pattern/">设计模式介绍</a><br/>
+    <a href="https://blog.csdn.net/qq_35661171/article/details/83180546">SimpleDateFormat的线程安全问题</a><br/>
+    <a href="https://www.cnblogs.com/baiduligang/p/4247164.html">springMVC思想</a><br/>
+    <a href="https://www.cnblogs.com/leskang/p/6101368.html">springMVC流程图</a><br/>
+    <a href="https://www.cnblogs.com/edisonchou/p/java_spring_cloud_foundation_sample_list.html">spring Cloud</a><br/>
+    <a href="https://blog.csdn.net/weixin_43304184/article/details/85102655">Linux 常用命令</a><br/>
+
+    <textarea style="height: 99%;width: 100%" rows="500">
+多线程：
+    创建线程的方式：
+        1，继承Thread
+        2，实现Runnable
+        3，实现Callable
+        4,使用线程池
+    wait/sleep 的不同：
+        wait属于Object对象的方法。wait方法释放锁 wait不需要捕获异常
+        sleep属于Thead类的方法。sleep 不释放锁，sleep需要捕获异常
+    线程间的通信方式：
+        1，同步机制 synchronized
+        2,轮询机制 while volatile
+        3,wait/notify机制
+        4，管道通信 
+            使用java.io.PipedInputStream 和 java.io.PipedOutputStream进行通信
+            通过管道，将一个线程中的消息发送给另一个
+    线程池的创建：
+        通过Executors提供的四种方法：
+        newFixedThreadPool 定长线程池
+        newSingleThreadExecutor 单线程化的线程池
+        newCachedThreadPool 可缓存线程池
+        newScheduledThreadPool 周期性定长线程池
+    线程池的好处：
+        管理并复用线程、控制最大并发数
+        实现任务线程队列缓存策略和拒绝机制
+        实现某些与时间相关的功能，如定时执行、周期执行
+    线程继承与实现接口的区别，接口的好处：
+        继承只能是单一类实现继承，
+        接口没有限制，可以实现资源共享
+    synchronized 与 ReentrantLock的区别
+        synchronized修饰方法，代码块；ReentrantLock 是对象，可用于程序中，更加灵活
+        持有ReentrantLock的线程不释放锁，其他等待获取该锁的线程可以中断等待。
+        ReentrantLock可以绑定多个Condition来精确唤醒其他线程
+        ReentrantLock可以实现公平锁
+    ReentrantLock实现原理
+        通过AQS类维护一个双向链表的队列，使用CAS算法来实现锁功能
+    volatile的作用和原理：
+        提供内存可见性，禁止指令重排
+        采用内存屏障。
+    CAS
+        是实现原子操作的算法。原理是利用Unsafe类调用本地方法实现原子操作。
+        算法的思想是：一个变量更新前，会用预估值与实际值比较，如果相同，则更新成功。不同，则更新失败。
+    数组阻塞队列和链表阻塞队列的区别
+        大小不同。
+        结构不同，一个数组，一个链表
+        数组阻塞队列没有锁分离，链表阻塞队列实现了锁分离，可以提高并发性能。
+    创建线程池的参数：
+        1，核心线程数
+        2，最大线程数：配置公式：业务模式：计算型（CPU核心数+1）IO型（ 核心数/(1-(0.8~0.9)) ）
+        3，最大空闲时间
+        4，时间单位
+        5，阻塞队列：任务缓存
+        6，线程工厂
+        7，拒绝策略：
+            AbortPolicy(默认)：直接报出异常，停止运行
+            CallerRunsPolicy：既不抛弃任务，也不抛出异常，而是把任务回退给调用者。
+            DiscardOldestPolicy：抛弃等待时间最久的任务。
+            DiscardPolicy：抛弃新来的任务。
+    线程池的原理：
+        用阻塞队列维护任务，创建线程执行任务；
+        当线程数=核心线程数&队列满时，创建新的线程执行任务。
+        当线程数=最大线程数&队列满时，根据拒绝策略，对多余的任务进行处理。
+        当线程数=最大线程数&队列不满时，根据最大空闲时间，销毁多余线程。
+    分布式线程安全问题：
+    Zookeeper,redis,数据库
+JVM:
+    垃圾回收算法：
+        引用计数，复制，标记清除，标记整理 
+    GC过程：
+    Minor GC           yong
+    Major/Full GC      yong+old
+    垃圾回收器：
+        Serial, ParNew , Parallel Scavenge
+        CMS, Serial Old, Parallel Old
+        G1
+    OOM如何解决：
+        设置JVM参数-XX:+HeapDumpOnOutOfMemoryError 当发生OOM时自动dump出堆信息
+        使用mat内存分析工具
+    JVM三种预定义类加载器
+        即启动类加载器
+        扩展类加载器
+        系统类加载器
+redis缓存：
+    redis优点：
+        简单，高效，数据类型丰富，分布式，支持持久化（RDB,AOF），单线程，原子性操作,可做消息队列
+    redis缺点：
+        持久化
+            RDB:定时快照方式：保存快，还原快，有数据丢失风险 触发条件：正常关闭redis;满足conf中配置的save 900 1（每900秒至少有一个key发生变化） 条件
+            AOP:语句追加方式：aof文件会越来越大，无数据丢失。
+        占用高内存：硬件问题不大
+    redis基本数据类型：
+    string(字符串),hash（哈希）,list（列表）,set（集合）,zset（有序集合）
+    redis缓存策略：
+        1，给数据设置缓存超时时间 -1：永久 -2：过期 0~：存活剩余时间
+            exists key 检查key是否存在
+            expire key seconds 设置过期时间 ttl key 返回剩余时间
+            pexpire key milliseconds pttl key
+            persist key 移除过期时间
+        2，采用LRU算法
+    redis常见问题：
+        缓存穿透：访问一个根本不存在的key,会导致系统请求数据库查询，结果数据库没有数据，也没有写入缓存；导致在服务高峰时，频繁的访问数据库崩掉。
+            解决方案：1，采用布隆过滤器，过滤大量无效key请求；2，无论是什么原因没有数据，就缓存一个空结果，设置一个短的过期时间。
+        缓存雪崩：key的过期时间分布不均匀，导致某一时间打量key过期，引起大量DB请求。
+            解决方案：1，在每个过期时间上加一个随机数，分布的更加均匀。
+        缓存击穿（热点key问题）：由于该key并发数非常大，一旦失效，从而引发大量的并发请求DB,数据库崩溃。
+            解决方案：
+                1，采用互斥锁的方式，当无缓存时，先不去请求DB,而是先在redis中通过setnx设置一个互斥key mutex key;并设置过期时间，
+                    当返回成功时才请求DB,添加缓存key,并删除mutex key;
+                    返回失败时，阻塞一小段时间，重试该方法。
+                2，提前互斥锁的方式，在value上设置过期时间，value过期时间早于key;当value过期时，延长value过期时间，然后请求DB,设置缓存。
+                3，key永不过期，设置value过期。当value过期时，通过异步线程创建缓存。
+                1，2保证一致性，但是有死锁，线程池阻塞风险。
+                3，不阻塞线程池，但不保证一致性。
+
+    redis与数据库一致性问题：
+        1，实时同步。
+        2，在高并发场景下，上一步中的操作不能是原子的。可以采用队列的方式进行更新。
+        3，canal同步工具
+        4，lua脚本
+    redis高可用方案：
+        读写分离，主从复制思想：主机负责写操作，从机负责读操作。当一个从机启动时，会从主机上复制数据到本机上，如果一个从机挂掉，还有其他从机；如果主机挂掉，会有一个从机作为主机运行。
+    redis单线程模型为什么支持高并发？
+        基于内存，非阻塞的IO多路复用，避免了多线程要频繁的上下文切换问题。
+    redis的哨兵模型：
+        1，监控所有的服务器运行状态。
+        2，一旦主服务器宕机，会自动将从服务器变成主服务器，并通过发布订阅模式通知其他服务器，修改配置文件，切换主机。
+        3，也可以搭建多哨兵模型，同时也监控其他哨兵，当检测到主机不可用的哨兵数量达到一定数量时，一个哨兵发起投票，选出一个主机，完成切换。
+消息中间件：
+    1，如何保证消息中间件的高可用？
+        RabbitMQ:采用镜像集群模式，新消息进来的时候，都会同步到其他实例上。一台实例宕机，其他实力继续使用。缺点是单机压力没有减少，相对也增加了，水平扩展能力下降。
+        kafka:采用副本机制，每创建一个topic(主题)，会划分为多个分区partition,分布在不同的节点上，每个分区上的数据在其他节点上都有副本，副本之间选出一个leader,之后的生产与消费都与这个leader打交道。宕机也不影响业务。而且可以水平扩展。
+    2，如何保证消息不重复消费？
+        1，保证幂等性
+        2，确保ack状态码返回给MQ,删除已消费的消息。
+    3，堆积了大量消息如何处理？
+        1，先修复消费者，然后停掉现有消费者，然后创建临时大量的队列，和大量消费者，快速消费。等数量下来后，重新正常部署架构。
+        2，如何设置了过期时间，打量数据被丢弃，重新找回，并返回到队列中。
+    4，消息如何保证顺序消费？
+        1，消费者
+数据库：
+    1，sql优化
+        包含null值的列不能使用索引
+        like 能用like 'c%' 就不用like '%c%'
+        避免在order by子句中使用表达式
+        from子句的表，记录少的写在后，中间表写在后。
+        避免使用select * ,* 会被解释为所有列名
+        用EXISTS替代IN
+        用>=替代> 
+        用UNION替换OR (适用于索引列) 
+        用UNION-ALL 替换UNION ( 如果有可能的话)
+        GROUP BY之前，尽量减少记录数
+    2，索引失效的情况：
+        where子句中使用or
+        对于多列索引，不是使用的第一部分。
+        like 模糊搜索使用%开头
+        字符串类型的字段将数据不用引号包起来
+    3，mysql的存储引擎InnoDB与MyISAM的区别：
+        两者最大的区别就是InnoDB支持事务，和行锁，索引结构为簇集。
+    4，mysql索引：
+        索引的最左原则
+    5，mysql分库分表：
+        1，MySQL实现主从库
+        2，MYCAT中间件
+框架：
+    1，spring中使用到的设计模式：
+        1）工厂设计模式，如BeanFactory,ApplicationContext
+        2）代理设计模式，spring AOP功能的实现
+        3）单例模式： spring中的Bean模式是单例的。
+        4）模板方法模式：spring中的jdbcTemplate,hibernateTemplate等
+        5）包装器设计模式：多数据源功能的实现
+        6）观察者模式：Spring事件驱动模型
+        7）适配器模式：Spring AOP的增强或通知，以及controller
+    2,Spring Bean 注入方式：
+        构造方法，setter,注解
+    3，spring IOC 与 AOP的理解：
+        IOC:通过依赖注入的方式，解决了java Bean 之间创建过程的繁琐性。使创建与使用隔离开。
+        AOP:使用动态代理的方式，能够在程序运行期动态的创建，运行。实现统一的功能。弥补了OOP的不足。为程序增加了模块化。
+    4，spring事务：
+        传播行为：
+            PROPAGATION_REQUIRED：表示当前方法必须运行在事务中。如果当前事务存在，方法将会在该事务中运行。否则，会启动一个新的事务
+            PROPAGATION_SUPPORTS：表示当前方法不需要事务上下文，但是如果存在当前事务的话，那么该方法会在这个事务中运行
+            PROPAGATION_MANDATORY：表示该方法必须在事务中运行，如果当前事务不存在，则会抛出一个异常
+            PROPAGATION_REQUIRED_NEW：表示当前方法必须运行在它自己的事务中。一个新的事务将被启动。如果存在当前事务，在该方法执行期间，当前事务会被挂起。
+            PROPAGATION_NOT_SUPPORTED：表示该方法不应该运行在事务中。如果存在当前事务，在该方法运行期间，当前事务将被挂起。
+            PROPAGATION_NEVER：表示当前方法不应该运行在事务上下文中。如果当前正有一个事务在运行，则会抛出异常
+            PROPAGATION_NESTED：表示如果当前已经存在一个事务，那么该方法将会在嵌套事务中运行。嵌套的事务可以独立于当前事务进行单独地提交或回滚。如果当前事务不存在，那么其行为与PROPAGATION_REQUIRED一样。
+        隔离级别：
+            ISOLATION_DEFAULT：使用后端数据库默认的隔离级别
+            ISOLATION_READ_UNCOMMITTED：可读取未提交的数据，可能会导致脏读、不可重复读或幻读
+            ISOLATION_READ_COMMITTED：允许读取提交的数据，不会导致脏读，但会导致不可重复读或幻读
+            ISOLATION_REPEATABLE_READ：可重复读，不会导致脏读、不可重复读，但会导致幻读
+            ISOLATION_SERIALIZABLE 不会导致脏读、不可重复读，幻读
+    5，Mybatis缓存：
+        一级缓存：默认开启，sqlSession级别的缓存。
+        二级缓存：全局缓存。需要在mapper配置文件中使用<cache>标签，并在<select>标签属性useCache设置为true
+    6，mybatis的mapper配置文件中的$与#的不同：
+        $参数会拼接成sql
+    7，RPC框架：
+        常见的RPC框架：
+            netty 基于NIO的客户、服务器端编程框架
+            brpc,
+            Dubbo 一款依赖于spring的高性能、轻量级的开源Java RPC框架，它提供了三大核心能力：面向接口的远程方法调用，智能容错和负载均衡，以及服务自动注册和发现。
+            gRPC 是一种接口描述语言和二进制通讯协议，它被用来定义和创建跨语言的服务
+    8，Dubbo:
+        注册中心：负责服务注册与发现。（zookeeper实现）
+        生产者：向注册中心注册自己的服务。
+        消费者：向注册中心订阅服务
+        监控中心：负责统计消费者与生产者的调用情况。
+        服务容器：加载，运行服务提供者。
+
+    9，Spring Cloud：
+        Spring Cloud Netflix：核心组件，可以对多个Netflix OSS开源套件进行整合，包括以下几个组件：
+            Eureka：服务治理组件，包含服务注册与发现
+            Hystrix：容错管理组件，实现了熔断器
+            Ribbon：客户端负载均衡的服务调用组件
+            Feign：基于Ribbon和Hystrix的声明式服务调用组件
+            Zuul：网关组件，提供智能路由、访问过滤等功能
+            Archaius：外部化配置组件
+        Spring Cloud Config：配置管理工具，实现应用配置的外部化存储，支持客户端配置信息刷新、加密/解密配置内容等。
+        Spring Cloud Bus：事件、消息总线，用于传播集群中的状态变化或事件，以及触发后续的处理
+        Spring Cloud Security：基于spring security的安全工具包，为我们的应用程序添加安全控制
+        Spring Cloud Consul : 封装了Consul操作，Consul是一个服务发现与配置工具（与Eureka作用类似），与Docker容器可以无缝集成
+    10,zookeeper:
+        zookeeper可以创建 类文件系统的节点，应用程序监听该节点，当该节点有变化时，通知应用程序。
+其他：
+    1，分布式事务：
+         通过MQ来确保事务最终一致性
+         利用RocketMQ的事务消息
+    2，分布式session
+        1,Nginx负责同一用户绑定特定服务器上。
+        2，tomcat集群开启session复制。   
+        3,redis集群服从复制存储session.
+        4，持久化session到数据库。
+    3，如何防止表单重复提交：
+        1，表单页面token验证
+        2，页面js禁用按钮
+    4，ElasticSearch全文检索：
+        1，采用restful风格的请求方式，来检索数据文档。
+        2，一个主从架构集群。
+        3，搜索引擎原理是建立反向索引。
+        
+
+
+
+    java锁：
+    1，公平锁：公平锁即尽量以请求锁的顺序来获取锁。比如同是有多个线程在等待一个锁，当这个锁被释放时，等待时间最久的线程（最先请求的线程）会获得该所，这种就是公平锁
+    2，非公平锁：无法保证锁的获取是按照请求锁的顺序进行的。这样就可能导致某个或者一些线程永远获取不到锁。
+    3，可重入锁/递归锁：同一个线程在一个外层方法获取锁之后，自动获取该方法中调用的另一个同步方法的锁
+    4，自旋锁：是指当一个线程在获取锁的时候，如果锁已经被其它线程获取，那么该线程将循环等待，然后不断的判断锁是否能够被成功获取，直到获取到锁才会退出循环。
+        CAS中使用了自旋锁；
+    5，互斥锁：是指当一个线程在获取锁的时候，如果锁已经被其它线程获取，那么该线程将进入睡眠状态。
+    6，读写锁：读写锁将对一个资源（比如文件）的访问分成了2个锁，一个读锁和一个写锁。正因为有了读写锁，才使得多个线程之间的读操作不会发生冲突。
+    线程池：
+        创建线程池的参数：
+            1，核心线程数
+            2，最大线程数：配置公式：业务模式：计算型（CPU核心数+1）IO型（ 核心数/(1-(0.8~0.9)) ）
+            3，最大空闲时间
+            4，时间单位
+            5，阻塞队列：任务缓存
+            6，线程工厂
+            7，拒绝策略：
+                AbortPolicy(默认)：直接报出异常，停止运行
+                CallerRunsPolicy：既不抛弃任务，也不抛出异常，而是把任务回退给调用者。
+                DiscardOldestPolicy：抛弃等待时间最久的任务。
+                DiscardPolicy：抛弃新来的任务。
+    死锁：
+        产生原因：系统资源不足，资源分配不当，进程运行推进的顺序不合适
+        排查方式：jps -l  列出运行的java进程，定位进程id;jstack PID 打印栈信息，定位错误类型以及目标代码。
+    JVM:
+        GC的作用域：堆，方法区。
+        常见的垃圾回收算法：引用计数，复制，标记清除，标记整理
+            引用计数：缺点：每次对对象赋值时均要维护引用计数，计数器本身也有一定的消耗；较难处理循环引用（一般不采用这种算法）
+            复制算法：发生在Yong区。复制--》清除--》交换：优点：没有内存碎片。缺点：浪费更多空间。大对象复制更难。
+            标记清除：先标记要回收的对象。然后对要回收的对象尝试回收。优点：没有复制过程。操作简单。缺点：内存碎片。
+            标记整理：为了减少标记清除带来的内存碎片问题。通过移动对象内存的位置。腾出更大的内存空间区域。缺点：耗时。
+        GC root：java可达性分析算法中作为搜索起始点。如果一个一个对象不能与GCroot 相连，则为死亡对象，相反为存活。
+                 GC root 集合：虚拟机栈中的对象引用；方法区中的静态属性引用的对象；方法区中的常量引用。本地方法栈中JNI引用的对象。
+        JVM参数：
+            分类：
+            标准参数：
+                -version
+                -help
+                -showversion
+            X参数：
+                -Xint：解释执行
+                -Xcomp：第一次执行就编译成本地代码
+                -Xmixed：混合模式（默认）
+                可以通过 java -Xint -version 的方式更改jVM模式
+            XX参数：
+                Boolean类型：形式：-XX:+/-属性 +表示开启 -表示关闭
+                    常见参数：
+                    -XX:-PrintGCDetails 是否打印GCu收集细节 
+                    -XX:-UseSerialGC 是否使用串行垃圾回收器
+                    实例：查看打印GC详细信息是否开启 jps -l 获取java程序线程id；jinfo -flag PrintGCDetails PID 显示属性值
+                    F:\idea_workspace\juc>jps -l
+                    1940
+                    17256 org.jetbrains.jps.cmdline.Launcher
+                    19480 com.cwj.JVMDemo
+                    16412 sun.tools.jps.Jps
+
+                    F:\idea_workspace\juc>jinfo -flag PrintGCDetails 19480
+                    -XX:-PrintGCDetails
+                    备注：
+                        1) jinfo -flag 属性名 pid 查看某属性值
+                        2) jinfo -flags pid 查看所有属性值
+                    
+                KV设置类型：键值对形式 -XX:属性名=属性值 
+                    -XX:MetaspaceSize=125m 设置元空间大小
+                    -XX:MaxTenuringThreshold=15 设置垃圾最大年龄
+                    注意点：
+                        -Xms 等价于 -XX:InitialHeapSize
+                        -Xmx 等价于 -XX:MaxHeapSize   
+
+                总结：查看参数方式：
+                1）java -XX:+PrintFlagsInitial 
+                2）java -XX:+PrintFlagsFinal 查看java全部属性的最终值
+                3）java -XX:+PrintCommandLineFlags 可以查看JVM的垃圾回收器
+            常用参数：
+                -Xms 等价于 -XX:InitialHeapSize 初始堆内存大小 物理内存的1/64
+                -Xmx 等价于 -XX:MaxHeapSize 最大堆内存大小 物理内存的1/4
+                -Xss 等价于 -XX:ThreadStackSize 设置单个线程栈的大小，一般默认为 512K ~ 1024K
+                -Xmn
+                -XX:MetaspaceSize 元空间大小，默认大小约为20M，容易出现OOM异常
+                -XX:+PrintGCDetails 打印GC详细信息
+                -XX:SurvivorRatio 设置Yong区各分区的比例。默认：eden:from:to = 8:1:1 可以设置-XX:SurvivorRatio=4,则eden:from:to = 4:1:1
+                -XX:NewRatio 设置新生代与老年代的堆占比。默认新生代为1，老年代为2。如果-XX:NewRatio=4 则：new:old = 1:4
+                -XX:MaxTenuringThreshold 设置垃圾最大年龄 范围 0 ~ 15
+            VM参数实例：
+            -Xms128m -Xmx4096m -Xss1024k -XX:MetaspaceSize=512m -XX:+PrintCommandLineFlags -XX:+PrintGCDetails -XX:+-UseSerialGC
+        java引用：
+            分类：
+                强引用：当内存不足时，JVM开始对垃圾回收。然而对于强引用的对象，即使出现了OOM,也不会对其回收。
+                软引用：当内存充足是，不会被回收;当内存不足时，会被回收。常应用于对内存敏感的程序中，如图片缓存。
+                弱引用：无论内存是否充足，都将被回收。
+                虚引用：不会决定对象的生命周期，而是在回收的时候，通过引用队列做一些系统通知和其他一些操作。
+        JVM异常：
+            java.lang.StackOverflowError
+            java.lang.OUtOfMemoryError:Java heap space
+            java.lang.OUtOfMemoryError:GC overhead limit exceeded 垃圾回收效果极其微小。
+            java.lang.OUtOfMemoryError:Direct buffer memory NIO程序容易发生
+            java.lang.OUtOfMemoryError:unable to create new native thread 创建线程数过多
+            java.lang.OUtOfMemoryError:Metaspace 元空间溢出
+        垃圾回收器：
+            Serial：串行 （DefNew）
+
+            ParNew 并行复制算法 其他与Serial相同 （ParNew）
+            CMS：并发标记清除 特点是：并发收集，低停顿，如果CMS对垃圾回收失败，则会触发一次较长停顿的Full GC进行回收。（par new generation + concurrent mark-sweep）
+            Serial Old 标记整理算法 （Tenured）
+
+            Parallel Scavenge 并行复制算法 关注点在吞吐量，相比于ParNew,具有自适应调节策略 （PSYoungGen）
+            Parallel Old 并行 标记整理 回收器 关注点在吞吐量 （ParOldGen）
+
+            G1：
+                区域化内存划片Region,整体上不连续的内存区域，逻辑上连续，避免了全内存的GC操作。
+                每个Region的角色不是固定的；每个Resion的大小（1MB~32MB)，默认划分为2048个Resion.
+                角色分为四种：Eden,Survivor,Old,Humongous;
+            回收步骤：
+                1，初始标记：只标记GC Roots能直接关联的对象
+                2，并发标记：进行GC Roots Tracing的过程
+                3，最终标记：修正并发标记期间，因程序运行导致标记发生变化的那一部分对象
+                3，筛选回收：根据时间来进行价值最大化的回收
+    生产环境诊断：
+        1，服务器变慢：
+            整机：top ;查看程序的CPU占比，内存占比 %CPU %MEM; load average:1.41, 0.98,0.46; 平均值>0.6 则系统承载过高；（）q退出）
+                uptime命令查看load average值
+            CPU：
+                vmstat 查看系统多个参数值：vmstat -n 2 3 表示：每2秒采样一次，共计3次：显示的列：procs 线程;memory 内存；swap 交换空间;io;system;cpu;
+                    - procs
+                        r:运行和等待CPU时间片的进程数，原则上1核心的CPU的运行队列不要超过2，整个系统的运行队列不能超过总核心数的2倍，否是压力过大。
+                        b:等待资源的进程数，比如正在等待磁盘I/O，网络I/O等
+                    - cpu
+                        us:用户进程消耗的CPU时间百分比，US越高，用户进程消耗CPU时间越多，如果长期大于50%，优化程序；
+                        sy:内核进程消耗的CPU时间百分比
+                        us + sy 如果大于80%，说明可能存在CPU不足。
+                mpstat -P ALL 2 查看所在cpu的信息，每2秒采样一次
+                    idle: 闲置率越高，说明CPU占用越低
+                pidstat -u 1 -p 进程编号 查看没个进程使用CPU的用来分解信息
+            
+            内存：free -m/g 
+            硬盘：df -h 
+            磁盘：iostat -xdk 2 3 2秒采样一次，采样3次
+                rkB/s 读取速度
+                wkB/s 写入速度
+                svctm I/O 请求的平均服务时间 单位毫秒
+                await I/O 请求的平均等待时间，单位毫秒；值越小，性能越好
+                util 一秒钟用于I/O操作的百分比；接近100%，表示带宽严重不足，优化程序或者增加带宽。
+            网络IO：ifstat
+        CPU暂用过高问题定位：
+            1，top 查看java进程的id
+            2,jps -l 查看哪个java程序有问题。
+            3,ps -mp 进程编号 -o THREAD,tid,time 定位占用最高的线程id
+                -m: 显示所有线程
+                -p 进程使用的cpu的时间
+                -o 该参数后是用户自定义格式
+            4，jstack 进程id| grep 16进制的tid -A60  打印进程下的tid的前60行的栈信息
+            
+
+            
+
+
+
+        
+        
+        
+        </textarea>
+</body>
+</html>
