@@ -849,3 +849,153 @@ public class Data {
 </configuration>
 ```
 
+#### 国际化：
+
+1. 在resources下创建资源文件：messages.properties(Spring 默认从资源目录下查找该文件)，如果该文件不存在，则不会启动自动配置一个messageSource的bean;
+
+2. 如果需要创建不同的国际化资源文件，如exception.properties等，需要在配置文件中设置：
+
+    ```properties
+    spring.messages.basename=messages,exception
+    
+    ```
+
+3. 配合全局异常处理器实现多语言异常信息提示
+
+    ```java
+    package com.cwj.demo2.config;
+    
+    import com.cwj.demo2.param.ApiResult;
+    import lombok.extern.slf4j.Slf4j;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.context.MessageSource;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.lang.Nullable;
+    import org.springframework.validation.FieldError;
+    import org.springframework.web.bind.MethodArgumentNotValidException;
+    import org.springframework.web.bind.annotation.ExceptionHandler;
+    import org.springframework.web.bind.annotation.RestControllerAdvice;
+    import org.springframework.web.method.HandlerMethod;
+    import org.springframework.web.servlet.LocaleResolver;
+    
+    import javax.servlet.http.HttpServletRequest;
+    import javax.servlet.http.HttpServletResponse;
+    import java.util.List;
+    
+    /**
+     * @author chenwujie
+     * @date 2020-12-11 10:23
+     */
+    @RestControllerAdvice
+    @Slf4j
+    public class GlobalExceptionHandler {
+    
+        @Autowired
+        private MessageSource messageSource;
+        @Autowired
+        LocaleResolver localeResolver;
+    
+        @ExceptionHandler(MyException.class)
+        public ApiResult<?> myException(HttpServletRequest request,
+                                                   HttpServletResponse response, @Nullable HandlerMethod handlerMethod, MyException e) {
+            e.printStackTrace();
+            String code = e.getCode();
+            String message = messageSource.getMessage(code, null, localeResolver.resolveLocale(request));
+            ApiResult<?> apiResult = new ApiResult<>();
+            apiResult.setCode(code);
+            apiResult.setMessage(message);
+            return apiResult;
+        }
+    
+        @ExceptionHandler(RuntimeException.class)
+        public ApiResult<?> handleRuntimeException(HttpServletRequest request,
+                                                   HttpServletResponse response, @Nullable HandlerMethod handlerMethod, RuntimeException e) {
+            e.printStackTrace();
+            ApiResult<?> apiResult = new ApiResult<>();
+            apiResult.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            apiResult.setMessage("系统异常");
+            return apiResult;
+        }
+    }
+    
+    ```
+
+4. 区域主动切换：
+
+    WebmvcAutoConfiguration中定义了localeResolver Bean:
+
+    ```java
+    @Bean
+    @ConditionalOnMissingBean
+    @ConditionalOnProperty(prefix = "spring.mvc", name = "locale")
+    public LocaleResolver localeResolver() {
+        if (this.mvcProperties.getLocaleResolver() == WebMvcProperties.LocaleResolver.FIXED) {
+            return new FixedLocaleResolver(this.mvcProperties.getLocale());
+        }
+        AcceptHeaderLocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
+        localeResolver.setDefaultLocale(this.mvcProperties.getLocale());
+        return localeResolver;
+    }
+    ```
+
+    1. 如果想使用默认配置，需要在配置文件中定义 spring.mvc.locale 属性：
+
+    ```properties
+    # 设置请求的语言环境，默认情况下，会被"Accept-Language" header覆盖
+    spring.mvc.locale=en_US
+    ```
+
+    默认的localeResolver实现：
+
+    ```java
+    public class AcceptHeaderLocaleResolver implements LocaleResolver {
+        // 。。。
+        
+    	@Override
+    	public Locale resolveLocale(HttpServletRequest request) {
+    		Locale defaultLocale = getDefaultLocale();
+    		if (defaultLocale != null && request.getHeader("Accept-Language") == null) {
+    			return defaultLocale;
+    		}
+    		Locale requestLocale = request.getLocale();
+    		List<Locale> supportedLocales = getSupportedLocales();
+    		if (supportedLocales.isEmpty() || supportedLocales.contains(requestLocale)) {
+    			return requestLocale;
+    		}
+    		Locale supportedLocale = findSupportedLocale(request, supportedLocales);
+    		if (supportedLocale != null) {
+    			return supportedLocale;
+    		}
+    		return (defaultLocale != null ? defaultLocale : requestLocale);
+    	}   
+        // 。。。
+    }	
+    
+    ```
+
+    
+
+    1. 如果想自定义locale逻辑，可以自己注入localeResolver Bean，实现LocaleResolver接口
+
+        ```java
+        	@Override
+        	public Locale resolveLocale(HttpServletRequest request) {
+        		Locale defaultLocale = getDefaultLocale();
+        		if (defaultLocale != null && request.getHeader("Accept-Language") == null) {
+        			return defaultLocale;
+        		}
+        		Locale requestLocale = request.getLocale();
+        		List<Locale> supportedLocales = getSupportedLocales();
+        		if (supportedLocales.isEmpty() || supportedLocales.contains(requestLocale)) {
+        			return requestLocale;
+        		}
+        		Locale supportedLocale = findSupportedLocale(request, supportedLocales);
+        		if (supportedLocale != null) {
+        			return supportedLocale;
+        		}
+        		return (defaultLocale != null ? defaultLocale : requestLocale);
+        	}
+        ```
+
+        
+
