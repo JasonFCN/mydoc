@@ -52,6 +52,7 @@
     <a href="https://blog.csdn.net/weixin_43304184/article/details/85102655">Linux 常用命令</a><br/>
 
     <textarea style="height: 99%;width: 100%" rows="500">
+
 多线程：
     创建线程的方式：
         1，继承Thread
@@ -65,7 +66,7 @@
         1，同步机制 synchronized
         2,轮询机制 while volatile
         3,wait/notify机制
-        4，管道通信 
+        4，管道通信
             使用java.io.PipedInputStream 和 java.io.PipedOutputStream进行通信
             通过管道，将一个线程中的消息发送给另一个
     线程池的创建：
@@ -119,7 +120,7 @@
     Zookeeper,redis,数据库
 JVM:
     垃圾回收算法：
-        引用计数，复制，标记清除，标记整理 
+        引用计数，复制，标记清除，标记整理
     GC过程：
     Minor GC           yong
     Major/Full GC      yong+old
@@ -199,8 +200,8 @@ redis缓存：
         from子句的表，记录少的写在后，中间表写在后。
         避免使用select * ,* 会被解释为所有列名
         用EXISTS替代IN
-        用>=替代> 
-        用UNION替换OR (适用于索引列) 
+        用>=替代>
+        用UNION替换OR (适用于索引列)
         用UNION-ALL 替换UNION ( 如果有可能的话)
         GROUP BY之前，尽量减少记录数
     2，索引失效的情况：
@@ -246,7 +247,7 @@ redis缓存：
             ISOLATION_SERIALIZABLE 不会导致脏读、不可重复读，幻读
     5，Mybatis缓存：
         一级缓存：默认开启，sqlSession级别的缓存。
-        二级缓存：全局缓存。需要在mapper配置文件中使用<cache>标签，并在<select>标签属性useCache设置为true
+        二级缓存：全局缓存。需要在mapper配置文件中使用&lt;cache&gt;标签，并在&lt;select&gt;标签属性useCache设置为true
     6，mybatis的mapper配置文件中的$与#的不同：
         $参数会拼接成sql
     7，RPC框架：
@@ -282,7 +283,7 @@ redis缓存：
          利用RocketMQ的事务消息
     2，分布式session
         1,Nginx负责同一用户绑定特定服务器上。
-        2，tomcat集群开启session复制。   
+        2，tomcat集群开启session复制。
         3,redis集群服从复制存储session.
         4，持久化session到数据库。
     3，如何防止表单重复提交：
@@ -292,7 +293,7 @@ redis缓存：
         1，采用restful风格的请求方式，来检索数据文档。
         2，一个主从架构集群。
         3，搜索引擎原理是建立反向索引。
-        
+
 
 
 
@@ -343,7 +344,7 @@ redis缓存：
             XX参数：
                 Boolean类型：形式：-XX:+/-属性 +表示开启 -表示关闭
                     常见参数：
-                    -XX:-PrintGCDetails 是否打印GCu收集细节 
+                    -XX:-PrintGCDetails 是否打印GCu收集细节
                     -XX:-UseSerialGC 是否使用串行垃圾回收器
                     实例：查看打印GC详细信息是否开启 jps -l 获取java程序线程id；jinfo -flag PrintGCDetails PID 显示属性值
                     F:\idea_workspace\juc>jps -l
@@ -357,16 +358,16 @@ redis缓存：
                     备注：
                         1) jinfo -flag 属性名 pid 查看某属性值
                         2) jinfo -flags pid 查看所有属性值
-                    
-                KV设置类型：键值对形式 -XX:属性名=属性值 
+
+                KV设置类型：键值对形式 -XX:属性名=属性值
                     -XX:MetaspaceSize=125m 设置元空间大小
                     -XX:MaxTenuringThreshold=15 设置垃圾最大年龄
                     注意点：
                         -Xms 等价于 -XX:InitialHeapSize
-                        -Xmx 等价于 -XX:MaxHeapSize   
+                        -Xmx 等价于 -XX:MaxHeapSize
 
                 总结：查看参数方式：
-                1）java -XX:+PrintFlagsInitial 
+                1）java -XX:+PrintFlagsInitial
                 2）java -XX:+PrintFlagsFinal 查看java全部属性的最终值
                 3）java -XX:+PrintCommandLineFlags 可以查看JVM的垃圾回收器
             常用参数：
@@ -429,9 +430,9 @@ redis缓存：
                 mpstat -P ALL 2 查看所在cpu的信息，每2秒采样一次
                     idle: 闲置率越高，说明CPU占用越低
                 pidstat -u 1 -p 进程编号 查看没个进程使用CPU的用来分解信息
-            
-            内存：free -m/g 
-            硬盘：df -h 
+
+            内存：free -m/g
+            硬盘：df -h
             磁盘：iostat -xdk 2 3 2秒采样一次，采样3次
                 rkB/s 读取速度
                 wkB/s 写入速度
@@ -447,15 +448,6 @@ redis缓存：
                 -p 进程使用的cpu的时间
                 -o 该参数后是用户自定义格式
             4，jstack 进程id| grep 16进制的tid -A60  打印进程下的tid的前60行的栈信息
-            
-
-            
-
-
-
-        
-        
-        
-        </textarea>
+    </textarea>
 </body>
 </html>
