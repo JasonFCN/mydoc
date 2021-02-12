@@ -1981,25 +1981,140 @@ Java堆上的对象是如何进行创建、布局、访问的？
 
 ​	使用CMS垃圾收集器：-XX:+UseConcMarkSweepGC （ParNewGC 自动开启）（以低延迟为目标）
 
-| 参数                    | Yong区垃圾收集器    | Old区垃圾收集器     | 描述                     |
-| ----------------------- | ------------------- | ------------------- | ------------------------ |
-| -XX:+UseParallelGC      | PS Scavenge         | PS MarkSweep        | 以吞吐量为目标的收集方案 |
-| -XX:+UseConcMarkSweepGC | ParNew              | ConcurrentMarkSweep | 以低延迟为目标的收集方案 |
-| -XX:+UseParNewGC        | ParNew              | MarkSweepCompack    |                          |
-| -XX:+UseSerialGC        | Copy                | MarkSweepCompack    |                          |
-| -XX:+UseParallelOldGC   | PS Scavenge         | PS MarkSweep        |                          |
-| -XX:+UseG1GC            | G1 Young Generation | G1 Old Generation   |                          |
-|                         |                     |                     |                          |
+| 参数                       | Yong区垃圾收集器    | Old区垃圾收集器     | 描述                         |
+| -------------------------- | ------------------- | ------------------- | ---------------------------- |
+| -XX:+UseParallelGC         | PS Scavenge         | PS MarkSweep        | 以吞吐量为目标的收集方案     |
+| -XX:+UseConcMarkSweepGC    | ParNew              | ConcurrentMarkSweep | 以低延迟为目标的收集方案     |
+| -XX:+UseParNewGC           | ParNew              | MarkSweepCompack    |                              |
+| -XX:+UseSerialGC           | Copy                | MarkSweepCompack    |                              |
+| -XX:+UseParallelOldGC      | PS Scavenge         | PS MarkSweep        |                              |
+| -XX:+UseG1GC               | G1 Young Generation | G1 Old Generation   |                              |
+| -XX:+PrintGCDetails        |                     |                     | 打印GC日志。                 |
+| -XX:PretenureSizeThreshold |                     |                     | 设置大对象阈值（单位：字节） |
 
 
 
 #### 四：内存分配与回收策略
 
+​	内存分配：在堆上分配（但也可能经过JIT编译后被拆散为标量类型并间接在栈上分配），对象主要分配在新生代的Eden区上，如果启动了本地线程分配缓冲，将按线程优先在TLAB上分配。少数情况下也可能直接在老年代分配，分配规则不是固定的，受垃圾收集器及虚拟机与内存参数设置。
 
+  - 对象优先在Eden区分配
+
+    如果Eden区没足够的空间分配内存，将引发一次Minor GC。在GC过程中，如果Eden区存活的对象复制到Survivor区时，Survivor区的内存不够，会将存活的对象分配到老年代中去。此时，Eden区空间占用率为0，新对象可以被分配足够的内存。
+
+  - 大对象直接进入老年代
+
+    ​	当新生代分配失败且对象是一个不含任何对象引用的大数组，直接分配到老年代；
+
+    ​	任何比PretenureSizeThreshold参数值大的对象不再在新生代尝试分配，直接在老年代分配。
+
+    ​	PretenureSizeThreshold默认值为0，意味着所有对象都将在新生代尝试分配。PretenureSizeThreshold参数只对Serial和ParNew两款收集器有效。
+
+    ​	
+
+  - 长期存活的对象将进入老年代
+
+    ​	每个对象都有一个对象年龄计数器。如果对象在Eden区生成，并经过第一次Minor GC后仍然存活，并且能被Survivor区容纳的话，将被移动到Survivor区，并且对象年龄设为1。在Survivor区的对象，每经历过Mimor GC仍然存活的话，年龄就+1。当它的年龄增加到一定程度时（默认Parallel Scavenge :15，CMS:6），将会被晋升到老年代中。
+
+    ​	该阈值通过参数：-XX:MaxTenuringThreshold设置。
+
+  - 动态对象年龄判定
+
+    ​	并非对象的年龄必须达到MaxTenuringThreshold设置的值才能晋升到老年代。如果Survivor区中的相同年龄对象的大小总和大于Survivor空间的一半，那所有 年龄大于等于该年龄的对象都可以直接进入老年代。
+
+  - 空间分配担保
+
+    在进行Minor GC之前，会先检查老年代最大可用的连续空间是否大于新生代所有对象总空间，如果大于，则认为此次Minor GC是安全的。如果不大于，则会继续检查老年代最大可用的连续空间是否大于新生代历次晋升到老年代对象的平均大小，如果大于，则尝试Minor GC，否则进行Full GC。
 
 #### 五：JDK工具
 
+​	命令行工具：
 
+| 名称   | 作用                                                         |
+| ------ | ------------------------------------------------------------ |
+| jps    | JVM Process Status Tool，显示虚拟机进程                      |
+| jstat  | JVM Statistics Monitoring Tool，收集虚拟机统计监控信息       |
+| jinfo  | Configuration Info for Java，显示虚拟机配置                  |
+| jmap   | Memory Map for Java，生成虚拟机内存转储快照（heapdump 文件） |
+| jhat   | JVM Heap Dump Browser,用于分析heapdump文件，它会建立HTTP/HTML服务，用于在浏览器访问 |
+| jstack | Stack Trace for Java，显示虚拟机线程快照                     |
+
+- jps：
+
+  jps : 显示进程id和主类名称
+
+  jps -l：显示进程id 和主类全类名（如果是jar，则输出jar路径）
+
+  jps -q：只显示进程id
+
+  jps -m：显示传递给main方法的参数
+
+  jps -v：显示JVM启动参数
+
+- jstat：
+
+  options：
+
+  | 选项              | 作用                                                         |
+  | ----------------- | ------------------------------------------------------------ |
+  | -class            | 监控类装载、卸载数量、总空间已经类装载所耗费时间             |
+  | -gc               | 监控Java堆状况，包括Eden区、两个Survivor区、老年代等的容量、已用空间、GC时间合计等信息 |
+  | -gccapacity       | 监控内容与-gc相同，但输出主要关注Java堆各个区域使用到的最大、最小空间 |
+  | -gcutil           | 监控内容与-gc相同，但输出主要关注已使用空间占比              |
+  | -gccause          | 与-gcutil相同，但会额外输出导致上一次GC产生的原因            |
+  | -gcnew            | 监控新生代状况                                               |
+  | -gcnewcapacity    | 监控内容与-gcnew相同，但主要关注使用到的最大、最小空间       |
+  | -gcold            | 监控老年代状况                                               |
+  | -gcoldcapatity    | 监控内容与-gcold相同，但主要关注使用到的最大、最小空间       |
+  | -gcmetacapatity   | 监控元空间内存使用情况                                       |
+  | -printcompilation | 输出已经被JIT编译的方法                                      |
+  | -compiler         | 输出JIT编译器编译过的方法、耗时等信息                        |
+
+  
+
+- jinfo：
+
+  ​	jinfo \<pid\>：打印系统参数、JVM参数
+
+  ​	jinfo -flags \<pid\>：打印JVM参数
+
+  ​	jinfo -flag \<name\> \<pid\>：打印具体VM参数的值
+
+  ​	jinfo -sysprops \<pid\>：打印系统参数的值
+
+- jmap：
+
+  ​	options参数：
+
+  | 选项           | 作用                                                         |
+  | -------------- | ------------------------------------------------------------ |
+  | -heap          | 打印堆信息，如回收器、参数配置、堆使用情况                   |
+  | -histo         | 打印堆中对象的统计信息，类，实例数量，总大小等               |
+  | -clstats       | 打印类加载器的统计信息                                       |
+  | -finalizerinfo | 显示在F-Queue中等待Finalizer线程执行finalize()方法的对象     |
+  | -dump          | 生成Java堆快照。格式：jmap -dump:[live,]format=b,file=\<filename\> \<pid\>;意思为：只转储存货对象，格式为二进制，文件名为filename。 |
+  | -F             | 当进程对-dump选项没有响应时，强制生成dump快照。              |
+
+- jhat：
+
+  内存快照分析工具，不如用VisualVM以及Eclipse Memory Analyzer。
+
+- jstack：
+
+  用于生成虚拟机当前时刻的线程快照（一般称为threaddump或者javacore文件）。线程快照就是当前虚拟机内每一条线程正在执行的方法堆栈的集合，生成线程快照的主要目的是定位线程出现长时间停顿的原因，如线程死锁、死循环、请求外部资源导致的长时间等待等。
+
+  options参数：
+
+  | 选项 | 作用                                      |
+  | ---- | ----------------------------------------- |
+  | -l   | 显示堆栈外，还有关于锁的附加信息          |
+  | -F   | 强制输出线程堆栈                          |
+  | -m   | 如果调用本地方法的话，可以显示C/C++的堆栈 |
+
+  可视化工具：
+
+  - JConsole
+  - VisualVM
 
 #### 六：类文件结构
 
