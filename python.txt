@@ -1,8 +1,8 @@
-1,ÇóÁ½¸öÊýµÄ´óÐ¡£º
+1,æ±‚ä¸¤ä¸ªæ•°çš„å¤§å°ï¼š
 
-#µ¼ÈëËæ»úÊýº¯Êý°ü
+#å¯¼å…¥éšæœºæ•°å‡½æ•°åŒ…
 import random
-#¶¨ÒåÁËÒ»¸öº¯Êý£º
+#å®šä¹‰äº†ä¸€ä¸ªå‡½æ•°ï¼š
 def compareNum(num1, num2):
     if(num1>num2):
         return 1
@@ -10,17 +10,17 @@ def compareNum(num1, num2):
         return 0
     else:
         return -1
-#Ëæ»úÊý¶ÔÁ½¸ö±äÁ¿¸³Öµ,Ëæ»ú·¶Î§[1,9),²½½øÎª2£¬ÒâË¼ÊÇ·¶Î§ÖÐÖ»ÄÜÊÇ1£¬3£¬5£¬7
+#éšæœºæ•°å¯¹ä¸¤ä¸ªå˜é‡èµ‹å€¼,éšæœºèŒƒå›´[1,9),æ­¥è¿›ä¸º2ï¼Œæ„æ€æ˜¯èŒƒå›´ä¸­åªèƒ½æ˜¯1ï¼Œ3ï¼Œ5ï¼Œ7
 num1 = random.randrange(1,9,2)
 num2 = random.randrange(1,9,2)
 print("num1 = ",num1)
 print("num2 = ",num2)
-#µ÷ÓÃ¶¨ÒåµÄº¯ÊýcompareNum():
+#è°ƒç”¨å®šä¹‰çš„å‡½æ•°compareNum():
 print(compareNum(num1,num2))
 
-2£¬´´½¨Ò»¸ö¶ÔÏó:
+2ï¼Œåˆ›å»ºä¸€ä¸ªå¯¹è±¡:
 
-Àý×Ó1£º
+ä¾‹å­1ï¼š
 class Student:
     __name = ""
     def __init__(self,name):
@@ -28,12 +28,12 @@ class Student:
     def getName(self):
         return self.__name
 
-#ÀàºÍº¯ÊýÈë¿ÚÖ®¼äÓÃÒ»¿ÕÐÐ¸ô¿ª£¬±íÊ¾ÐÂµÄ´úÂëµÄ¿ªÊ¼
+#ç±»å’Œå‡½æ•°å…¥å£ä¹‹é—´ç”¨ä¸€ç©ºè¡Œéš”å¼€ï¼Œè¡¨ç¤ºæ–°çš„ä»£ç çš„å¼€å§‹
 if __name__ == "__main__":
     student = Student("Tom")
     print(student.getName())
 
-Àý×Ó2£º
+ä¾‹å­2ï¼š
 class A:
     def funX(self):
         print("funX()")
@@ -46,26 +46,27 @@ if __name__ == "__main__":
     a.funX()
     a.funY()
 
-3£¬¹ØÓÚ×¢ÊÍ
+3ï¼Œå…³äºŽæ³¨é‡Š
 
-µ¥ÐÐ×¢ÊÍ£ºÓÃÒ»¸ö #
-¶àÐÐ×¢ÊÍ£ºpython »áºöÂÔ"#"ºóµÄÄÚÈÝ
-ËùÒÔ¿ÉÒÔÃ¿ÐÐ¿ªÍ·¶¼ÓÃ#À´×¢ÊÍ£¬¶ÎÂäÖ®¼ä¿ÉÒÔÓÃÒ»¸ö#ÐÐ¸ô¿ª
-¹ØÓÚÖÐÎÄ×¢ÊÍ£º
-ÔÚpythonÎÄ¼þµÄ×îÇ°Ãæ¼ÓÉÏ(´Ë×¢ÊÍ½öÕë¶Ôpython2,ÒòÎªpython3ÖÐÄ¬ÈÏµÄ±àÂëÊÇUnicode)
-# -*- £º UTF-8 -*-
-¿çÆ½Ì¨×¢ÊÍ£º
-*nixÏµÍ³ÖÐ
+å•è¡Œæ³¨é‡Šï¼šç”¨ä¸€ä¸ª #
+å¤šè¡Œæ³¨é‡Šï¼špython ä¼šå¿½ç•¥"#"åŽçš„å†…å®¹
+æ‰€ä»¥å¯ä»¥æ¯è¡Œå¼€å¤´éƒ½ç”¨#æ¥æ³¨é‡Šï¼Œæ®µè½ä¹‹é—´å¯ä»¥ç”¨ä¸€ä¸ª#è¡Œéš”å¼€
+å…³äºŽä¸­æ–‡æ³¨é‡Šï¼š
+åœ¨pythonæ–‡ä»¶çš„æœ€å‰é¢åŠ ä¸Š(æ­¤æ³¨é‡Šä»…é’ˆå¯¹python2,å› ä¸ºpython3ä¸­é»˜è®¤çš„ç¼–ç æ˜¯Unicode)
+# -*- ï¼š UTF-8 -*-
+
+è·¨å¹³å°æ³¨é‡Šï¼š
+*nixç³»ç»Ÿä¸­
 #!/usr/bin/python
 
-4£¬Óï¾äµÄ·Ö¸ô
-·ÖºÅ£º;±íÊ¾Óï¾äµÄ½áÊø£¬µ«ÊÇpython²»ÍÆ¼öÕâÑùµÄ·½Ê½£¬ÒòÎªpython¸üÇãÏòÓÚÊ¹ÓÃ»»ÐÐÎªÓï¾ä½øÐÐ·Ö¸ô
-¶ÔÓÚÒ»ÌõÓï¾ä£¬ÐèÒªÕ¼ÓÃ¶àÐÐµÄÇé¿ö£¬¿ÉÒÔÓÃ"\"À´ÊµÏÖ
+4ï¼Œè¯­å¥çš„åˆ†éš”
+åˆ†å·ï¼š;è¡¨ç¤ºè¯­å¥çš„ç»“æŸï¼Œä½†æ˜¯pythonä¸æŽ¨èè¿™æ ·çš„æ–¹å¼ï¼Œå› ä¸ºpythonæ›´å€¾å‘äºŽä½¿ç”¨æ¢è¡Œä¸ºè¯­å¥è¿›è¡Œåˆ†éš”
+å¯¹äºŽä¸€æ¡è¯­å¥ï¼Œéœ€è¦å ç”¨å¤šè¡Œçš„æƒ…å†µï¼Œå¯ä»¥ç”¨"\"æ¥å®žçŽ°
 
-5£¬python µÄ±äÁ¿ºÍ³£Á¿
-python ±äÁ¿µÄ¸³Öµ£º
-    Ã¿Ò»´Î¸³Öµ¶¼½«´´½¨Ò»¸öÐÂµÄ±äÁ¿
-ÀýÈç£º
+5ï¼Œpython çš„å˜é‡å’Œå¸¸é‡
+python å˜é‡çš„èµ‹å€¼ï¼š
+    æ¯ä¸€æ¬¡èµ‹å€¼éƒ½å°†åˆ›å»ºä¸€ä¸ªæ–°çš„å˜é‡
+ä¾‹å¦‚ï¼š
 x = 1
 print(id(x))
 x = 2
@@ -74,11 +75,11 @@ print(id(x))
 1724539040
 1724539072
 
-±äÁ¿¶¼±ØÐë¸³Öµ£¬·ñÔòÖ±½ÓÊä³öÃ»ÓÐ¸³ÖµµÄ±äÁ¿½«±¨Ò»¸ö´íÎóÌáÊ¾£º
-ÀýÈçprint (y)
+å˜é‡éƒ½å¿…é¡»èµ‹å€¼ï¼Œå¦åˆ™ç›´æŽ¥è¾“å‡ºæ²¡æœ‰èµ‹å€¼çš„å˜é‡å°†æŠ¥ä¸€ä¸ªé”™è¯¯æç¤ºï¼š
+ä¾‹å¦‚print (y)
 NameError: name 'y' is not defined
 
-6,ÐòÁÐ·½Ê½µÄ¶à±äÁ¿¸³Öµ£º
+6,åºåˆ—æ–¹å¼çš„å¤šå˜é‡èµ‹å€¼ï¼š
 
 a = (1,2,3)
 (x,y,z) = a
@@ -90,7 +91,7 @@ print(z)
 2
 3
 
-7,¾Ö²¿±äÁ¿
+7,å±€éƒ¨å˜é‡
 
 def funX():
     local = 1
@@ -98,7 +99,7 @@ def funX():
 funX()
 print(local)
 
-8£¬È«¾Ö±äÁ¿£º
+8ï¼Œå…¨å±€å˜é‡ï¼š
 
 _a = 1
 _b = 2
@@ -130,17 +131,17 @@ print(sub())
 ('_a + _b = ', 5)
 ('_a - _b = ', -3)
 
-±¸×¢£º×¢ÒâÒ»ÏÂ²»´øglobal Óë´øglobal µÄÇø±ð
+å¤‡æ³¨ï¼šæ³¨æ„ä¸€ä¸‹ä¸å¸¦global ä¸Žå¸¦global çš„åŒºåˆ«
 
-9,³£Á¿
+9,å¸¸é‡
 
-10£¬Êý¾ÝÀàÐÍ
-£¬×Ô¶¯ÀàÐÍ¹ÜÀí
-pythonÖÐÓÐint ,float,bool,complex(¸´Êý£©£¬str long(?,Ã»ÓÐ²âÊÔ³öÀ´£¬ºÃÏñÃ»ÓÐlongÀàÐÍ)
+10ï¼Œæ•°æ®ç±»åž‹
+ï¼Œè‡ªåŠ¨ç±»åž‹ç®¡ç†
+pythonä¸­æœ‰int ,float,bool,complex(å¤æ•°ï¼‰ï¼Œstr long(?,æ²¡æœ‰æµ‹è¯•å‡ºæ¥ï¼Œå¥½åƒæ²¡æœ‰longç±»åž‹)
 
-str£ºÓÐ' ,",''',¶¼¿ÉÒÔ±íÊ¾×Ö·û´®
+strï¼šæœ‰' ,",''',éƒ½å¯ä»¥è¡¨ç¤ºå­—ç¬¦ä¸²
 
-''',¿ÉÒÔÐ´doc ÎÄµµ
+''',å¯ä»¥å†™doc æ–‡æ¡£
 
 class Hello:
     '''hello world'''
@@ -153,7 +154,7 @@ print (Hello.printHello.__doc__)
 hello world
 print hello world
 
-×ªÒå×Ö·û£º  \
+è½¬ä¹‰å­—ç¬¦ï¼š  \
 
 str = 'he say:\'hello world!\''
 
@@ -161,25 +162,25 @@ print (str)
 
 he say:'hello world!'
 
-Ê¹ÓÃË«ÒýºÅ»òÈýÒýºÅ¿ÉÒÔÖ±½ÓÊä³öº¬ÓÐÌØÊâ×Ö·ûµÄ×Ö·û´®£¬²»ÐèÒªÊ¹ÓÃ×ªÒå×Ö·û¡£
+ä½¿ç”¨åŒå¼•å·æˆ–ä¸‰å¼•å·å¯ä»¥ç›´æŽ¥è¾“å‡ºå«æœ‰ç‰¹æ®Šå­—ç¬¦çš„å­—ç¬¦ä¸²ï¼Œä¸éœ€è¦ä½¿ç”¨è½¬ä¹‰å­—ç¬¦ã€‚
 
 str = "he say:'hello world!'"
 print (str)
-str = '''he say:'hello world!' '''#×¢Òâ£ºÈýÒýºÅÇ°ÃæÓÐÒ»¸ö¿Õ¸ñ£¬ÎªÁËÊÇÈÃpythonÊ¶±ð³öÈýÒýºÅ
+str = '''he say:'hello world!' '''#æ³¨æ„ï¼šä¸‰å¼•å·å‰é¢æœ‰ä¸€ä¸ªç©ºæ ¼ï¼Œä¸ºäº†æ˜¯è®©pythonè¯†åˆ«å‡ºä¸‰å¼•å·
 print (str)
 
 he say:'hello world!'
 he say:'hello world!' 
 
-12£¬ÔËËã·ûÓë±í´ïÊ½
+12ï¼Œè¿ç®—ç¬¦ä¸Žè¡¨è¾¾å¼
 
-ÔËËã·û£º+£¬-£¬* £¬/,%,**;(¼Ó£¬¼õ£¬³Ë£¬³ý£¬Ä££¨ÇóÓà£©£¬ÃÝ£©
-	²»Ö§³Ö×ÔÔö¡¢×Ô¼õ
+è¿ç®—ç¬¦ï¼š+ï¼Œ-ï¼Œ* ï¼Œ/,%,**;(åŠ ï¼Œå‡ï¼Œä¹˜ï¼Œé™¤ï¼Œæ¨¡ï¼ˆæ±‚ä½™ï¼‰ï¼Œå¹‚ï¼‰
+	ä¸æ”¯æŒè‡ªå¢žã€è‡ªå‡
 
-13£¬Âß¼­ÔËËã
-Óë£¬»ò£¬·Ç and,or,not
+13ï¼Œé€»è¾‘è¿ç®—
+ä¸Žï¼Œæˆ–ï¼Œéž and,or,not
 
-ÕâÀïÊÇÒ»¸öÓÃ»ù´¡Âß¼­ÔËËã£¬±àÐ´µÄÒ»¸öÒì»òÔËËã£º
+è¿™é‡Œæ˜¯ä¸€ä¸ªç”¨åŸºç¡€é€»è¾‘è¿ç®—ï¼Œç¼–å†™çš„ä¸€ä¸ªå¼‚æˆ–è¿ç®—ï¼š
 
 def xor(b1,b2):
     return not b1 and b2 or b1 and not b2
@@ -196,25 +197,25 @@ False
 print(xor(True,False))
 True
 
-14£¬Ìõ¼þÅÐ¶ÏÓï¾ä
+14ï¼Œæ¡ä»¶åˆ¤æ–­è¯­å¥
 
 if(a<b):
-    print("aÐ¡ÓÚb")
+    print("aå°äºŽb")
 else:
-    print("a²»Ð¡ÓÚb")
+    print("aä¸å°äºŽb")
 
-¸½£º¿ØÖÆÌ¨ÊäÈë·½·¨£ºinput([ÌáÊ¾Óï])£¬ÀýÈç£ºx = input("x:")
+é™„ï¼šæŽ§åˆ¶å°è¾“å…¥æ–¹æ³•ï¼šinput([æç¤ºè¯­])ï¼Œä¾‹å¦‚ï¼šx = input("x:")
 
 x = input("x:")
 
-x:2             #2¾ÍÊÇ¼üÅÌÊä³öµÄ×Ö·û
+x:2             #2å°±æ˜¯é”®ç›˜è¾“å‡ºçš„å­—ç¬¦
 
 print(x)
 
-2		#2ÕâÀïÊÇ×Ö·ûÀàÐÍ£¬ÐèÒªÓÃint(x)×ª»»ÎªintÐÍ£¬Èç¹û²»×ªÐÍ£¬²»ÄÜÕýÈ·µÄ½øÐÐ¼ÆËã
+2		#2è¿™é‡Œæ˜¯å­—ç¬¦ç±»åž‹ï¼Œéœ€è¦ç”¨int(x)è½¬æ¢ä¸ºintåž‹ï¼Œå¦‚æžœä¸è½¬åž‹ï¼Œä¸èƒ½æ­£ç¡®çš„è¿›è¡Œè®¡ç®—
 
-±ê×¼µÄÊéÐ´·½Ê½£º
-¸½£ºÎªÁË·ÀÖ¹±àÐ´´úÂëµÄÊ±ºò£¬ÔÚ°´ÏÂenter¼üÖ´ÐÐ´úÂë£¬ÇëÊ¹ÓÃctrl+enter,¿ªÊ¼ÏÂÒ»ÐÐµÄ´úÂë±à¼­
+æ ‡å‡†çš„ä¹¦å†™æ–¹å¼ï¼š
+é™„ï¼šä¸ºäº†é˜²æ­¢ç¼–å†™ä»£ç çš„æ—¶å€™ï¼Œåœ¨æŒ‰ä¸‹enteré”®æ‰§è¡Œä»£ç ï¼Œè¯·ä½¿ç”¨ctrl+enter,å¼€å§‹ä¸‹ä¸€è¡Œçš„ä»£ç ç¼–è¾‘
 
 a = input("a:")
 a = int(a)
@@ -223,13 +224,13 @@ b = int(b)
 print(a+b)
 
 
-15£¬if ...elif... else   Ïàµ±ÓëjavaÖÐµÄif elseif else
-switch ¹¦ÄÜÓï¾äµÄÊµÏÖ
+15ï¼Œif ...elif... else   ç›¸å½“ä¸Žjavaä¸­çš„if elseif else
+switch åŠŸèƒ½è¯­å¥çš„å®žçŽ°
 
-Ê¹ÓÃ×ÖµäµÄ·½Ê½£º
-ÏÈµ¼Èë°ü
-1£¬ÏÈ¶¨ÒåÒ»¸ö×Öµä£¬ÓÉ¼üÖµ¶Ô×é³ÉµÄÊý×é£¬
-2£¬µ÷ÓÃ×ÖµäµÄget(key) ·½·¨
+ä½¿ç”¨å­—å…¸çš„æ–¹å¼ï¼š
+å…ˆå¯¼å…¥åŒ…
+1ï¼Œå…ˆå®šä¹‰ä¸€ä¸ªå­—å…¸ï¼Œç”±é”®å€¼å¯¹ç»„æˆçš„æ•°ç»„ï¼Œ
+2ï¼Œè°ƒç”¨å­—å…¸çš„get(key) æ–¹æ³•
 
 x = 1
 y = 2
@@ -244,17 +245,17 @@ print(result.get(operator))
 
 0.5
 
-16,Ñ­»·Óï¾ä
+16,å¾ªçŽ¯è¯­å¥
 
-    1£¬while Ñ­»·£º
+    1ï¼Œwhile å¾ªçŽ¯ï¼š
 
 while():
     ...
 else:
     ...
 
-ÀýÈç£º
-numbers = input("ÊäÈë¼¸¸öÊý×Ö£¬ÓÃ¶ººÅ·Ö¸ô£º").split(",")
+ä¾‹å¦‚ï¼š
+numbers = input("è¾“å…¥å‡ ä¸ªæ•°å­—ï¼Œç”¨é€—å·åˆ†éš”ï¼š").split(",")
 print(numbers)
 x = 0
 while x < len(numbers):
@@ -262,38 +263,38 @@ while x < len(numbers):
     x += 1
     
 
-ÊäÈë¼¸¸öÊý×Ö£¬ÓÃ¶ººÅ·Ö¸ô4,2,3,7
+è¾“å…¥å‡ ä¸ªæ•°å­—ï¼Œç”¨é€—å·åˆ†éš”4,2,3,7
 ['4', '2', '3', '7']
 4
 2
 3
 7
 
-    2£¬for Ñ­»·£º
-for ... in ...(range(-1,2))    #range(x)·µ»ØµÄÊÇÒ»¸öÁÐ±í£º
+    2ï¼Œfor å¾ªçŽ¯ï¼š
+for ... in ...(range(-1,2))    #range(x)è¿”å›žçš„æ˜¯ä¸€ä¸ªåˆ—è¡¨ï¼š
 
 class range(object)
    range(stop) -> range object
 range(start,stop[,step]) -> range object
 
-# for in Óï¾ä
+# for in è¯­å¥
 for x in range(-1,2):
     if x > 0:
-        print("ÕýÊý",x)
+        print("æ­£æ•°",x)
     elif x==0:
-        print("Áã",x)
+        print("é›¶",x)
     else:
-        print ("¸ºÊý",x)
+        print ("è´Ÿæ•°",x)
 else:
-    print("Ñ­»·½áÊø")
+    print("å¾ªçŽ¯ç»“æŸ")
     
-¸ºÊý -1
-Áã 0
-ÕýÊý 1
-Ñ­»·½áÊø
+è´Ÿæ•° -1
+é›¶ 0
+æ­£æ•° 1
+å¾ªçŽ¯ç»“æŸ
 
-  break ºÍ continue Óï¾ä£º
-Óëjava ÖÐµÄÓÃ·¨Ò»Ñù£¬break Ìø³öÕû¸öÑ­»·Ìå£¬continue Ö»ÊÇ´Ó±¾´ÎÑ­»·ÖÐÌø¹ý£¬Ö±½Ó½øÈëÏÂÒ»´ÎÑ­»·
+  break å’Œ continue è¯­å¥ï¼š
+ä¸Žjava ä¸­çš„ç”¨æ³•ä¸€æ ·ï¼Œbreak è·³å‡ºæ•´ä¸ªå¾ªçŽ¯ä½“ï¼Œcontinue åªæ˜¯ä»Žæœ¬æ¬¡å¾ªçŽ¯ä¸­è·³è¿‡ï¼Œç›´æŽ¥è¿›å…¥ä¸‹ä¸€æ¬¡å¾ªçŽ¯
 
 
 arr1 = input().split(",")
@@ -302,7 +303,7 @@ x = 0
 j = 0
 z = 0
 
-Ã°ÅÝÅÅÐò£º
+å†’æ³¡æŽ’åºï¼š
 
 def bubbleSort(numbers):
     for x in range(len(numbers)-1,-1,-1):
@@ -320,26 +321,26 @@ if __name__ == '__main__':
     
 [1, 1, 12, 15, 23, 32]
 
-17£¬Êý¾Ý½á¹¹£ºÔª×é£¬ÁÐ±í£¬×Öµä  ;Ôª×é£¬ÁÐ±íºÍ×Ö·û´®¶¼ÊôÓÚÐòÁÐ£¡£¨¶¼ÓÐË÷Òý£©
+17ï¼Œæ•°æ®ç»“æž„ï¼šå…ƒç»„ï¼Œåˆ—è¡¨ï¼Œå­—å…¸  ;å…ƒç»„ï¼Œåˆ—è¡¨å’Œå­—ç¬¦ä¸²éƒ½å±žäºŽåºåˆ—ï¼ï¼ˆéƒ½æœ‰ç´¢å¼•ï¼‰
 
-Ôª×é£ºtuple
-¶¨Òå£ºtuple = ("apple","banana","orange") 
-      tuple = ("apple",)                 #Î¨Ò»ÔªËØµÄÔª×é£¬ÔªËØºó±ØÐë¸úÒ»¸ö¶ººÅ£¬Óë±í´ïÊ½Çø·Ö
+å…ƒç»„ï¼štuple
+å®šä¹‰ï¼štuple = ("apple","banana","orange") 
+      tuple = ("apple",)                 #å”¯ä¸€å…ƒç´ çš„å…ƒç»„ï¼Œå…ƒç´ åŽå¿…é¡»è·Ÿä¸€ä¸ªé€—å·ï¼Œä¸Žè¡¨è¾¾å¼åŒºåˆ†
 
-				idea¿ª·¢¹¤¾ßÐ¡ÌáÊ¾£º
-					Ìø³öË«ÒýºÅ£ºshift + "
-					Ìø³öµ¥ÒýºÅ£º'
-					Ìø³öÀ¨ºÅ£ºshift + )
-					Ìø³öÖÐÀ¨ºÅ£º]
-					ÒÔ´ËÀàÍÆ¡£
-·ÃÎÊ·½Ê½£ºÓÃË÷ÒýºÅ·ÃÎÊ
+				ideaå¼€å‘å·¥å…·å°æç¤ºï¼š
+					è·³å‡ºåŒå¼•å·ï¼šshift + "
+					è·³å‡ºå•å¼•å·ï¼š'
+					è·³å‡ºæ‹¬å·ï¼šshift + )
+					è·³å‡ºä¸­æ‹¬å·ï¼š]
+					ä»¥æ­¤ç±»æŽ¨ã€‚
+è®¿é—®æ–¹å¼ï¼šç”¨ç´¢å¼•å·è®¿é—®
 
-ÌØÐÔ£ºÖ§³Ö¸ºÊýË÷Òý£¬ºÍ·ÖÆ¬(slice)£¬Ò»µ©´´½¨£¬²»¿É¸ü¸Ä
+ç‰¹æ€§ï¼šæ”¯æŒè´Ÿæ•°ç´¢å¼•ï¼Œå’Œåˆ†ç‰‡(slice)ï¼Œä¸€æ—¦åˆ›å»ºï¼Œä¸å¯æ›´æ”¹
 
-¸ºÊýË÷Òý£º´ÓÔª×éµÄÄ©¶ËÔªËØ¿ªÊ¼£¬Ë÷ÒýÎª-1,´ÎÄ©¶ËÔªËØË÷ÒýÎª-2,...
-·ÖÆ¬£ºÖ¸Ôª×éµÄ×Ó¼¯£¬ÓÃÁ½¸öË÷ÒýÖµ¹æ¶¨£¬Á½¸öË÷ÒýÖµÖÐ¼äÓÃÃ°ºÅ·Ö¸ô£ºtuple[m:n]
+è´Ÿæ•°ç´¢å¼•ï¼šä»Žå…ƒç»„çš„æœ«ç«¯å…ƒç´ å¼€å§‹ï¼Œç´¢å¼•ä¸º-1,æ¬¡æœ«ç«¯å…ƒç´ ç´¢å¼•ä¸º-2,...
+åˆ†ç‰‡ï¼šæŒ‡å…ƒç»„çš„å­é›†ï¼Œç”¨ä¸¤ä¸ªç´¢å¼•å€¼è§„å®šï¼Œä¸¤ä¸ªç´¢å¼•å€¼ä¸­é—´ç”¨å†’å·åˆ†éš”ï¼štuple[m:n]
 
-Ôª×éµÄ´ò°üÓë½â°ü
+å…ƒç»„çš„æ‰“åŒ…ä¸Žè§£åŒ…
 tuple3 = ("aaa","bbb","ccc")
 
 a,b,c = tuple3
@@ -348,60 +349,60 @@ print(a,b,c)
 
 aaa bbb ccc
 
-Ôª×éµÄ±éÀú·½Ê½£º
-1£¬Í¨¹ý range() ºÍ len() º¯Êý±éÀú
-2£¬Í¨¹ý for x in tuple Ö±½Ó±éÀú
+å…ƒç»„çš„éåŽ†æ–¹å¼ï¼š
+1ï¼Œé€šè¿‡ range() å’Œ len() å‡½æ•°éåŽ†
+2ï¼Œé€šè¿‡ for x in tuple ç›´æŽ¥éåŽ†
 
 
-ÁÐ±í£ºÓëÔª×éÏàËÆ£¬¶¼ÊÇÓÉÒ»×éÔªËØ×é³É£¬
+åˆ—è¡¨ï¼šä¸Žå…ƒç»„ç›¸ä¼¼ï¼Œéƒ½æ˜¯ç”±ä¸€ç»„å…ƒç´ ç»„æˆï¼Œ
 
-ÌØÐÔ£º¿ÉÒÔÔö£¬É¾£¬ ¸Ä£¬ ²é²Ù×÷£¬Í¬Ê±Ò²Ö§³Ö¸ºÊýË÷Òý£¬·ÖÆ¬£¬¶àÔª£¬
-Óëjava ÖÐµÄList ÏàËÆ
-´´½¨£º list = [ÔªËØ1£¬ÔªËØ2£¬...]
-Ôö£º append(object)
+ç‰¹æ€§ï¼šå¯ä»¥å¢žï¼Œåˆ ï¼Œ æ”¹ï¼Œ æŸ¥æ“ä½œï¼ŒåŒæ—¶ä¹Ÿæ”¯æŒè´Ÿæ•°ç´¢å¼•ï¼Œåˆ†ç‰‡ï¼Œå¤šå…ƒï¼Œ
+ä¸Žjava ä¸­çš„List ç›¸ä¼¼
+åˆ›å»ºï¼š list = [å…ƒç´ 1ï¼Œå…ƒç´ 2ï¼Œ...]
+å¢žï¼š append(object)
 
-É¾£º remove(value£©ÒÆ³ýÎªvalue µÄÔªËØ£¬ÌØ±ðµØ£¬Èç¹ûlist ÖÐÓÐÏàÍ¬µÄÔªËØ£¬ÔòÒÆ³ý¿¿Ç°µÄÔªËØ
-     remove(list[0]) ÒÆ³ýÏÂ±êÎª0 µÄÔªËØ
-     pop() #ÒÆ³ý×îºóÒ»¸öÔªËØ
+åˆ ï¼š remove(valueï¼‰ç§»é™¤ä¸ºvalue çš„å…ƒç´ ï¼Œç‰¹åˆ«åœ°ï¼Œå¦‚æžœlist ä¸­æœ‰ç›¸åŒçš„å…ƒç´ ï¼Œåˆ™ç§»é™¤é å‰çš„å…ƒç´ 
+     remove(list[0]) ç§»é™¤ä¸‹æ ‡ä¸º0 çš„å…ƒç´ 
+     pop() #ç§»é™¤æœ€åŽä¸€ä¸ªå…ƒç´ 
 
-²é£º index("value") »ò in ¹ØÏµÅÐ¶Ï
-index("value") ½«·µ»Øvalue¶ÔÓ¦µÄÏÂ±ê
-"value" in list ½«ÅÐ¶Ï"value"ÊÇ·ñ´æÔÚ£¬·µ»ØTrue»òfalse
+æŸ¥ï¼š index("value") æˆ– in å…³ç³»åˆ¤æ–­
+index("value") å°†è¿”å›žvalueå¯¹åº”çš„ä¸‹æ ‡
+"value" in list å°†åˆ¤æ–­"value"æ˜¯å¦å­˜åœ¨ï¼Œè¿”å›žTrueæˆ–false
 
-ÁÐ±íµÄÁ¬½Ó£º
-Í¨¹ýº¯Êýextend() ÀýÈç£ºlist1.extend(list2)
-ÔËËã·û£º¡°+¡±£¬¡°+=¡±
-list1 = list1+list2, »ò list1+=list2
+åˆ—è¡¨çš„è¿žæŽ¥ï¼š
+é€šè¿‡å‡½æ•°extend() ä¾‹å¦‚ï¼šlist1.extend(list2)
+è¿ç®—ç¬¦ï¼šâ€œ+â€ï¼Œâ€œ+=â€
+list1 = list1+list2, æˆ– list1+=list2
 
-ÁÐ±íµÄÅÅÐò£º
-sort():°´Ê××ÖÄ¸ÉýÐòÅÅÁÐ
-reverse():·´×ª£¬¶ÔÔ­Ë³Ðò·´ÏòÅÅÐò
+åˆ—è¡¨çš„æŽ’åºï¼š
+sort():æŒ‰é¦–å­—æ¯å‡åºæŽ’åˆ—
+reverse():åè½¬ï¼Œå¯¹åŽŸé¡ºåºåå‘æŽ’åº
 
-¸½£ºÁÐ±íÊÇlist ÀàµÄÊµÏÖ£¬ËùÒÔ¿ÉÒÔÊ¹ÓÃ help(list)À´»ñÈ¡¹ØÓÚlist ÀàµÄËùÓÐÐÅÏ¢
+é™„ï¼šåˆ—è¡¨æ˜¯list ç±»çš„å®žçŽ°ï¼Œæ‰€ä»¥å¯ä»¥ä½¿ç”¨ help(list)æ¥èŽ·å–å…³äºŽlist ç±»çš„æ‰€æœ‰ä¿¡æ¯
 
-listÀàµÄ³£ÓÃ·½·¨£º
-append(object):ÔÚÄ©Î²Ìí¼ÓÔªËØobject
-insert(index,object):ÔÚÖ¸¶¨Ë÷ÒýindexµÄÎ»ÖÃ²åÈë¶ÔÏóobject
-remove(value):ÒÆ³ýÁÐ±íÖÐÊ×´Î³öÏÖµÄÖµvalue
-pop([index]):É¾³ýÖ¸¶¨Ë÷Òýindex´¦µÄÖµ£¬Èç¹û²»´øË÷Òý£¬ÔòÉ¾³ýÁÐ±í×îºóµÄÔªËØ
-extend(iterable):ÓÃÀ´Á¬½ÓÆäËûÁÐ±íiterbale
-index(value,[start,[stop]]):·µ»Øvalue³öÏÖÔÚÁÐ±íÖÐµÄË÷ÒýÖµ£¬Èç¹ûÃ»ÓÐÔòÅ×³öÒì³£
-sort(cmp=None,key=None,reverse=False):ÅÅÐò
-reverse():ÁÐ±í·´×ª
+listç±»çš„å¸¸ç”¨æ–¹æ³•ï¼š
+append(object):åœ¨æœ«å°¾æ·»åŠ å…ƒç´ object
+insert(index,object):åœ¨æŒ‡å®šç´¢å¼•indexçš„ä½ç½®æ’å…¥å¯¹è±¡object
+remove(value):ç§»é™¤åˆ—è¡¨ä¸­é¦–æ¬¡å‡ºçŽ°çš„å€¼value
+pop([index]):åˆ é™¤æŒ‡å®šç´¢å¼•indexå¤„çš„å€¼ï¼Œå¦‚æžœä¸å¸¦ç´¢å¼•ï¼Œåˆ™åˆ é™¤åˆ—è¡¨æœ€åŽçš„å…ƒç´ 
+extend(iterable):ç”¨æ¥è¿žæŽ¥å…¶ä»–åˆ—è¡¨iterbale
+index(value,[start,[stop]]):è¿”å›žvalueå‡ºçŽ°åœ¨åˆ—è¡¨ä¸­çš„ç´¢å¼•å€¼ï¼Œå¦‚æžœæ²¡æœ‰åˆ™æŠ›å‡ºå¼‚å¸¸
+sort(cmp=None,key=None,reverse=False):æŽ’åº
+reverse():åˆ—è¡¨åè½¬
 
-Í¨¹ýlistµÄ·½·¨ÊµÏÖ¶ÑÕ»£¬¶ÓÁÐ£º
-¶ÑÕ»£ºÍ¨¹ýappend()ºÍpop()ÊµÏÖ£¬Ìí¼ÓµÄÔªËØÔÚÄ©Î²£¬É¾³ýÊ±Ò²ÊÇÉ¾³ý×îºóµÄÒ»¸öÔªËØ;(ºó½øÏÈ³ö)
-¶ÓÁÐ£ºÍ¨¹ýappend()ºÍpop(0)ÊµÏÖ£¬ÔªËØÌí¼ÓÔÚÄ©Î²£¬É¾³ýÊ±É¾³ýÁÐ±íµÚÒ»¸öÔªËØ;£¨ÏÈ½øÏÈ³ö£©
+é€šè¿‡listçš„æ–¹æ³•å®žçŽ°å †æ ˆï¼Œé˜Ÿåˆ—ï¼š
+å †æ ˆï¼šé€šè¿‡append()å’Œpop()å®žçŽ°ï¼Œæ·»åŠ çš„å…ƒç´ åœ¨æœ«å°¾ï¼Œåˆ é™¤æ—¶ä¹Ÿæ˜¯åˆ é™¤æœ€åŽçš„ä¸€ä¸ªå…ƒç´ ;(åŽè¿›å…ˆå‡º)
+é˜Ÿåˆ—ï¼šé€šè¿‡append()å’Œpop(0)å®žçŽ°ï¼Œå…ƒç´ æ·»åŠ åœ¨æœ«å°¾ï¼Œåˆ é™¤æ—¶åˆ é™¤åˆ—è¡¨ç¬¬ä¸€ä¸ªå…ƒç´ ;ï¼ˆå…ˆè¿›å…ˆå‡ºï¼‰
 
-¸ÐÏë£º¶ÑÕ»ºÍ¶ÓÁÐµÄÌØÐÔÊ¹ÆÕÍ¨µÄÊý¾ÝÓÐÁË½á¹¹ÐÔ£¬´Ó¶øÒ²ÈÃÊý¾Ý±¾ÉíÓÐÁËÒâÒå£¡£¡£¡£¡
+æ„Ÿæƒ³ï¼šå †æ ˆå’Œé˜Ÿåˆ—çš„ç‰¹æ€§ä½¿æ™®é€šçš„æ•°æ®æœ‰äº†ç»“æž„æ€§ï¼Œä»Žè€Œä¹Ÿè®©æ•°æ®æœ¬èº«æœ‰äº†æ„ä¹‰ï¼ï¼ï¼ï¼
 
-×Öµä½á¹¹£ºÓÉ¡°¼ü-Öµ¶Ô¡±×é³ÉµÄ¼¯ºÏ£¬Óëjava ÖÐµÄmapÊý¾ÝÀàÐÍÏàËÆ
+å­—å…¸ç»“æž„ï¼šç”±â€œé”®-å€¼å¯¹â€ç»„æˆçš„é›†åˆï¼Œä¸Žjava ä¸­çš„mapæ•°æ®ç±»åž‹ç›¸ä¼¼
 
-×ÖµäµÄ´´½¨£º
+å­—å…¸çš„åˆ›å»ºï¼š
   dictionary = {}
   dictionary = {key1:value1,key2:value2,...}
 
-¼òµ¥µØ´´½¨ºÍ·ÃÎÊ£º
+ç®€å•åœ°åˆ›å»ºå’Œè®¿é—®ï¼š
 dict = {"a":"aaa","b":"bbb","c":"ccc"}
 print(dict)
 print(dict["a"])
@@ -409,22 +410,22 @@ print(dict["a"])
 {'a': 'aaa', 'b': 'bbb', 'c': 'ccc'}
 aaa
 
-´´½¨×ÖµäÊ±£¬Ò²¿ÉÒÔÓÃ´¿Êý×Ö´úÌækey¼ü£º
+åˆ›å»ºå­—å…¸æ—¶ï¼Œä¹Ÿå¯ä»¥ç”¨çº¯æ•°å­—ä»£æ›¿keyé”®ï¼š
 dict = {1:"value1",2:"value2"}
 print(dict[1])
 
-print()¸ñÊ½»¯Êä³öÔÚdict ÖÐµÄÓ¦ÓÃ£º
+print()æ ¼å¼åŒ–è¾“å‡ºåœ¨dict ä¸­çš„åº”ç”¨ï¼š
 print("%s,%(a)s,%(b)s" %{"a":"apple","b":"banana"})
 
 {'a': 'apple', 'b': 'banana'},apple,banana
 
-×ÖµäµÄÔö£¬É¾£¬¸Ä £¬²é£º
-Ôö£¬¸Ä£ºdict["key"] = "value":Èç¹ûÔÚdictÖÐÕÒ²»µ½key,ÔòÐÂÔöÒ»¸ö¼üÖµ¶Ô£¬Èç¹û´æÔÚkey,ÔòÐÞ¸ÄvalueÖµ
-É¾£ºdel(dect["key"])
-    dict.pop("key")  :Èç¹û´æÔÚkey¼ü£¬ÔòÒÆ³ý¸Ã¼üÖµ¶Ô£¬²¢·µ»Ø¸Ã¼ü¶ÔÓ¦µÄÖµ
-    dict.clear()     :ÒÆ³ýËùÓÐµÄ¼üÖµ¶Ô£¬dict½«±äÎªÒ»¸ö¿Õ×Öµä
+å­—å…¸çš„å¢žï¼Œåˆ ï¼Œæ”¹ ï¼ŒæŸ¥ï¼š
+å¢žï¼Œæ”¹ï¼šdict["key"] = "value":å¦‚æžœåœ¨dictä¸­æ‰¾ä¸åˆ°key,åˆ™æ–°å¢žä¸€ä¸ªé”®å€¼å¯¹ï¼Œå¦‚æžœå­˜åœ¨key,åˆ™ä¿®æ”¹valueå€¼
+åˆ ï¼šdel(dect["key"])
+    dict.pop("key")  :å¦‚æžœå­˜åœ¨keyé”®ï¼Œåˆ™ç§»é™¤è¯¥é”®å€¼å¯¹ï¼Œå¹¶è¿”å›žè¯¥é”®å¯¹åº”çš„å€¼
+    dict.clear()     :ç§»é™¤æ‰€æœ‰çš„é”®å€¼å¯¹ï¼Œdictå°†å˜ä¸ºä¸€ä¸ªç©ºå­—å…¸
 
-×ÖµäµÄ±éÀú£º
+å­—å…¸çš„éåŽ†ï¼š
 for ... in ...
 
 dict = {"a":"aaa","b":"bbb","c":"ccc"}
@@ -449,7 +450,7 @@ dict[a] = aaa
 dict[b] = bbb
 dict[c] = ccc
 
-×ÖµäµÄ·½·¨£º
+å­—å…¸çš„æ–¹æ³•ï¼š
 keys():
 values():
 
@@ -460,10 +461,10 @@ dict_keys(['a', 'b', 'c'])
 print(dict.values())
 dict_values(['aaa', 'bbb', 'ccc'])
 
-dict.get(k[,d]):»ñÈ¡dict×ÖµäÖÐ¼üÎªk µÄÖµ£¬Èç¹ûk²»´æÔÚ£¬Ôò·µ»Ød,Èç¹û²»Ð´d,·µ»ØNone
+dict.get(k[,d]):èŽ·å–dictå­—å…¸ä¸­é”®ä¸ºk çš„å€¼ï¼Œå¦‚æžœkä¸å­˜åœ¨ï¼Œåˆ™è¿”å›žd,å¦‚æžœä¸å†™d,è¿”å›žNone
 
-dict1.update(dict2):ºÏ²¢dict1Óëdict2;Èç¹ûdict2ÖÐÓÐ¼üÖµÓëdict1ÖÐµÄ¼üÖµÏàÍ¬£¬Ôò°Ñdict2ÖÐ¼ü¶ÔÓ¦µÄÖµ¸²¸Ç		    dict1ÖÐ¼ü¶ÔÓ¦µÄÖµ;¸üÐÂºóµÄdict1ÊÇÎÞÐòµÄ
-dict.setdefault(k[,b]): Èç¹ûk´æÔÚ£¬Ôò·µ»Øget(k[,b])µÄÖµ£¬Èç¹û²»´æÔÚ£¬Ôò´´½¨ÐÂµÄ¼üÖµ¶Ôk-None»òk-b,·µ»Ø			get(k[,b])µÄÖµ
+dict1.update(dict2):åˆå¹¶dict1ä¸Ždict2;å¦‚æžœdict2ä¸­æœ‰é”®å€¼ä¸Ždict1ä¸­çš„é”®å€¼ç›¸åŒï¼Œåˆ™æŠŠdict2ä¸­é”®å¯¹åº”çš„å€¼è¦†ç›–		    dict1ä¸­é”®å¯¹åº”çš„å€¼;æ›´æ–°åŽçš„dict1æ˜¯æ— åºçš„
+dict.setdefault(k[,b]): å¦‚æžœkå­˜åœ¨ï¼Œåˆ™è¿”å›žget(k[,b])çš„å€¼ï¼Œå¦‚æžœä¸å­˜åœ¨ï¼Œåˆ™åˆ›å»ºæ–°çš„é”®å€¼å¯¹k-Noneæˆ–k-b,è¿”å›ž			get(k[,b])çš„å€¼
 
 dict = {}
 dict.setdefault("a")
@@ -482,7 +483,7 @@ Out[50]: 'aaa'
 print(dict)
 {'a': 'aaa'}
 
-dict.copy():¶ÔdictÄÚÈÝ½øÐÐ¿½±´
+dict.copy():å¯¹dictå†…å®¹è¿›è¡Œæ‹·è´
 
 print(dict)
 {'a': 'aaa', 'b': 'bbb', 'c': 'ccc'}
@@ -505,74 +506,74 @@ print(type(dict))
 print(type(dict.copy()))
 <class 'dict'>
 
-ÅÅÐò£º
-ÄÚÖÃº¯Êý£º
-sorted(dict.items(),key=lambda d: d[0])  #°´ÕÕkeyÅÅÐò
-sorted(dict.items(),key=lambda d: d[1])  #°´ÕÕvalueÅÅÐò 
+æŽ’åºï¼š
+å†…ç½®å‡½æ•°ï¼š
+sorted(dict.items(),key=lambda d: d[0])  #æŒ‰ç…§keyæŽ’åº
+sorted(dict.items(),key=lambda d: d[1])  #æŒ‰ç…§valueæŽ’åº 
 
-                                         lambdaÊÇÄäÃûº¯Êý£¬¡°:¡±Ç°µÄÊÇº¯Êý²ÎÊý£¬ºóÊÇ·µ»ØÖµ±í´ïÊ½
+                                         lambdaæ˜¯åŒ¿åå‡½æ•°ï¼Œâ€œ:â€å‰çš„æ˜¯å‡½æ•°å‚æ•°ï¼ŒåŽæ˜¯è¿”å›žå€¼è¡¨è¾¾å¼
 
 
-18,ÐòÁÐ£ºÔª×é£¬ÁÐ±í£¬×Ö·û´®¶¼ÊÇÐòÁÐ
-ÐòÁÐµÄ·ÃÎÊ£º
+18,åºåˆ—ï¼šå…ƒç»„ï¼Œåˆ—è¡¨ï¼Œå­—ç¬¦ä¸²éƒ½æ˜¯åºåˆ—
+åºåˆ—çš„è®¿é—®ï¼š
 list = ['a','b','c','d','e']
-print(list[0])#µ¥Ë÷Òý·ÃÎÊ£ºa
-print(list[1:-1])#·ÖÆ¬·ÃÎÊ£¬·ÃÎÊ[1,-1):b,c,d
-print(list[:])#ËùÓÐÔªËØ
-print(list[:3])#´ÓµÚÒ»¸öµ½µÚÈý¸ö£ºa, b, c
-print(list[3:])#´ÓµÚËÄ¸öµ½×îºóÒ»¸ö£ºd,e
+print(list[0])#å•ç´¢å¼•è®¿é—®ï¼ša
+print(list[1:-1])#åˆ†ç‰‡è®¿é—®ï¼Œè®¿é—®[1,-1):b,c,d
+print(list[:])#æ‰€æœ‰å…ƒç´ 
+print(list[:3])#ä»Žç¬¬ä¸€ä¸ªåˆ°ç¬¬ä¸‰ä¸ªï¼ša, b, c
+print(list[3:])#ä»Žç¬¬å››ä¸ªåˆ°æœ€åŽä¸€ä¸ªï¼šd,e
 
-Ôª×éÓëÁÐ±íµÄÇø±ð£º
-
-
-	Ö§³Ö¸ºË÷Òý	Ö§³Ö·ÖÆ¬	Ö§³ÖÌí¡¢É¾¡¢¸Ä		Ö§³ÖÅÅÐò¡¢²éÕÒ		Êý¾Ýº¬Òå	
-Ôª×é£º	     ¡Ì		   ¡Ì 		      ¡Á                      ¡Á 	    ²»Í¬º¬ÒåµÄÊý¾Ý×é³É
-ÁÐ±í£º	     ¡Ì		   ¡Ì                 ¡Ì		      ¡Ì            ÏàÍ¬º¬ÒåµÄÊý¾Ý×é³É
+å…ƒç»„ä¸Žåˆ—è¡¨çš„åŒºåˆ«ï¼š
 
 
+	æ”¯æŒè´Ÿç´¢å¼•	æ”¯æŒåˆ†ç‰‡	æ”¯æŒæ·»ã€åˆ ã€æ”¹		æ”¯æŒæŽ’åºã€æŸ¥æ‰¾		æ•°æ®å«ä¹‰	
+å…ƒç»„ï¼š	     âˆš		   âˆš 		      Ã—                      Ã— 	    ä¸åŒå«ä¹‰çš„æ•°æ®ç»„æˆ
+åˆ—è¡¨ï¼š	     âˆš		   âˆš                 âˆš		      âˆš            ç›¸åŒå«ä¹‰çš„æ•°æ®ç»„æˆ
 
 
 
-activate // ÇÐ»»µ½base»·¾³
 
 
-activate learn // ÇÐ»»µ½learn»·¾³
+activate // åˆ‡æ¢åˆ°baseçŽ¯å¢ƒ
 
 
-conda create -n learn python=3 // ´´½¨Ò»¸öÃûÎªlearnµÄ»·¾³²¢Ö¸¶¨python°æ±¾Îª3(µÄ×îÐÂ°æ±¾)
+activate learn // åˆ‡æ¢åˆ°learnçŽ¯å¢ƒ
 
 
-conda env list // ÁÐ³öconda¹ÜÀíµÄËùÓÐ»·¾³
+conda create -n learn python=3 // åˆ›å»ºä¸€ä¸ªåä¸ºlearnçš„çŽ¯å¢ƒå¹¶æŒ‡å®špythonç‰ˆæœ¬ä¸º3(çš„æœ€æ–°ç‰ˆæœ¬)
 
 
-conda list // ÁÐ³öµ±Ç°»·¾³µÄËùÓÐ°ü
+conda env list // åˆ—å‡ºcondaç®¡ç†çš„æ‰€æœ‰çŽ¯å¢ƒ
 
 
-conda install requests °²×°requests°ü
+conda list // åˆ—å‡ºå½“å‰çŽ¯å¢ƒçš„æ‰€æœ‰åŒ…
 
 
-conda remove requests Ð¶ÔØrequets°ü
+conda install requests å®‰è£…requestsåŒ…
 
 
-conda remove -n learn --all // É¾³ýlearn»·¾³¼°ÏÂÊôËùÓÐ°ü
+conda remove requests å¸è½½requetsåŒ…
 
 
-conda update requests ¸üÐÂrequests°ü
+conda remove -n learn --all // åˆ é™¤learnçŽ¯å¢ƒåŠä¸‹å±žæ‰€æœ‰åŒ…
 
 
-conda env export > environment.yaml // µ¼³öµ±Ç°»·¾³µÄ°üÐÅÏ¢
+conda update requests æ›´æ–°requestsåŒ…
 
 
-conda env create -f environment.yaml // ÓÃÅäÖÃÎÄ¼þ´´½¨ÐÂµÄÐéÄâ»·¾³
+conda env export > environment.yaml // å¯¼å‡ºå½“å‰çŽ¯å¢ƒçš„åŒ…ä¿¡æ¯
+
+
+conda env create -f environment.yaml // ç”¨é…ç½®æ–‡ä»¶åˆ›å»ºæ–°çš„è™šæ‹ŸçŽ¯å¢ƒ
 
 
 
-´ò°üÎªexe:
+æ‰“åŒ…ä¸ºexe:
 pyinstaller -F E:\Anaconda3\envs\learn\code\test.py --noconsole
 
--F:°ÑËùÓÐÎÄ¼þ´ò°ü³ÉÒ»¸öexeÎÄ¼þ
---noconsole ÔËÐÐexe²»ÏÔÊ¾console¿ØÖÆÌ¨
-´ò°üºÃµÄÎÄ¼þ±£´æÔÚÁË C:\Users\Chenwujie\distÄ¿Â¼ÏÂ
+-F:æŠŠæ‰€æœ‰æ–‡ä»¶æ‰“åŒ…æˆä¸€ä¸ªexeæ–‡ä»¶
+--noconsole è¿è¡Œexeä¸æ˜¾ç¤ºconsoleæŽ§åˆ¶å°
+æ‰“åŒ…å¥½çš„æ–‡ä»¶ä¿å­˜åœ¨äº† C:\Users\Chenwujie\distç›®å½•ä¸‹
 
 
 
