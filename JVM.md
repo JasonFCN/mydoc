@@ -745,7 +745,7 @@ ClassFile {
     u2             major_version; // 0x0034
     u2             constant_pool_count; // 常量池数量，从1开始，其他表结构的数量表示都是从0开始
     cp_info        constant_pool[constant_pool_count-1]; // 常量池表xx_info都是两一个表结构的数据
-    u2             access_flags; // 
+    u2             access_flags; // 访问标志
     u2             this_class;
     u2             super_class;
     u2             interfaces_count;
@@ -784,7 +784,159 @@ ClassFile {
 | `CONSTANT_MethodType`         | 16    |
 | `CONSTANT_InvokeDynamic`      | 18    |
 
+- CONSTANT_Class_info：
 
+  ```
+  CONSTANT_Class_info {
+      u1 tag；// 0x07
+      u2 name_index; // constant_pool表中的有效索引，该索引条目必须时一个CONSTANT_Utf8_info结构，该结构表示以内部格式编码的有效二进制类或接口名称。类或者接口名称在源码中是以“.”来限定包名，在字节码中是以“/”来表示。
+  }
+  ```
+
+- CONSTANT_Utf8_info
+
+  ```
+  CONSTANT_Utf8_info {
+      u1 tag; // 0x01
+      u2 length; // 字节长度，注意：u2能表示的最大长度是65525，所以过长的字段名、方法名、类名编译不通过的。
+      u1 bytes[length];
+  }
+  ```
+
+access_flags（访问标志）：两个字节宽度，能表示16个，目前只规定了8个
+
+| Flag Name        | Value  | Interpretation                                               |
+| ---------------- | ------ | ------------------------------------------------------------ |
+| `ACC_PUBLIC`     | 0x0001 | 可以从该程序包外部进行访问                                   |
+| `ACC_FINAL`      | 0x0010 | 不能有子类                                                   |
+| `ACC_SUPER`      | 0x0020 | 为了区分invokespecial指令在不同版本的语义。JDK8及更高版本都把该标志设置为真。 |
+| `ACC_INTERFACE`  | 0x0200 | 接口标志                                                     |
+| `ACC_ABSTRACT`   | 0x0400 | 抽象类，不能实例化                                           |
+| `ACC_SYNTHETIC`  | 0x1000 | 表示该类是由编译器生成的，并且不会出现在源码中。             |
+| `ACC_ANNOTATION` | 0x2000 | 声明为注解类型                                               |
+| `ACC_ENUM`       | 0x4000 | 声明该类或父类为枚举类型                                     |
+
+类索引、父类索引、接口集合
+
+​	类索引、父类索引都用一个u2类型的索引表示，都指向一个类型为CONSTANT_Class_info常量；对于接口集合，采用u2类型的数据表示接口数量，如果没有接口，则用0表示，后面也不再占用字节表示接口。
+
+字段表集合
+
+​	用于描述接口或者类中声明的变量。字段包括类级别变量以及实例变量，但不包括局部变量。字段包含的信息有：
+
+​		作用域（public|private|protected）、变量级别（static）、可变性（final）、可见性（volatile）、可序列化（transient）、是否为枚举、字段类型（基本类型，对象，数组）和名称。
+
+```
+field_info {
+    u2             access_flags;
+    u2             name_index;
+    u2             descriptor_index;
+    u2             attributes_count;
+    attribute_info attributes[attributes_count];
+}
+```
+
+| Flag Name       | Value  | Interpretation                             |
+| --------------- | ------ | ------------------------------------------ |
+| `ACC_PUBLIC`    | 0x0001 | 包外访问                                   |
+| `ACC_PRIVATE`   | 0x0002 | 类私有                                     |
+| `ACC_PROTECTED` | 0x0004 | 在子类中访问                               |
+| `ACC_STATIC`    | 0x0008 | Declared `static`.                         |
+| `ACC_FINAL`     | 0x0010 | 构造对象之后，不再能够对其赋值(JLS §17.5). |
+| `ACC_VOLATILE`  | 0x0040 | 不能被缓存                                 |
+| `ACC_TRANSIENT` | 0x0080 | 不能被持久化对象管理器读或写               |
+| `ACC_SYNTHETIC` | 0x1000 | 由编译器生成的，并且不会出现在源代码中。   |
+| `ACC_ENUM`      | 0x4000 | 声明为enum元素                             |
+
+| *FieldType*术语     | 类型        | 解释                                                |
+| ------------------- | ----------- | --------------------------------------------------- |
+| `B`                 | `byte`      | 有符号字节                                          |
+| `C`                 | `char`      | 基本多语言平面中的Unicode字符代码点，使用UTF-16编码 |
+| `D`                 | `double`    | 双精度浮点值                                        |
+| `F`                 | `float`     | 单精度浮点值                                        |
+| `I`                 | `int`       | 整数                                                |
+| `J`                 | `long`      | 长整数                                              |
+| `L` *ClassName* `;` | `reference` | 类*ClassName的*一个实例                             |
+| `S`                 | `short`     | 签名短                                              |
+| `Z`                 | `boolean`   | `true` 或者 `false`                                 |
+| `[`                 | `reference` | 一维数组                                            |
+
+​	descriptor_index：
+
+表示字段的描述符索引，例如：int[] ->[I	
+
+Java中字段名不能重载，因此不管字段类型、修饰符是否相同，字段名不能相同。但在JVM字节码中字段重名是合法的。
+
+方法表集合：
+
+```
+method_info {
+    u2             access_flags;
+    u2             name_index;
+    u2             descriptor_index;
+    u2             attributes_count;
+    attribute_info attributes[attributes_count];
+}
+```
+
+​	访问标志：
+
+| Flag Name          | Value  | Interpretation                                               |
+| ------------------ | ------ | ------------------------------------------------------------ |
+| `ACC_PUBLIC`       | 0x0001 | Declared `public`; may be accessed from outside its package. |
+| `ACC_PRIVATE`      | 0x0002 | Declared `private`; accessible only within the defining class. |
+| `ACC_PROTECTED`    | 0x0004 | Declared `protected`; may be accessed within subclasses.     |
+| `ACC_STATIC`       | 0x0008 | Declared `static`.                                           |
+| `ACC_FINAL`        | 0x0010 | Declared `final`; must not be overridden ([§5.4.5](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-5.html#jvms-5.4.5)). |
+| `ACC_SYNCHRONIZED` | 0x0020 | Declared `synchronized`; invocation is wrapped by a monitor use. |
+| `ACC_BRIDGE`       | 0x0040 | A bridge method, generated by the compiler.                  |
+| `ACC_VARARGS`      | 0x0080 | Declared with variable number of arguments.                  |
+| `ACC_NATIVE`       | 0x0100 | Declared `native`; implemented in a language other than Java. |
+| `ACC_ABSTRACT`     | 0x0400 | Declared `abstract`; no implementation is provided.          |
+| `ACC_STRICT`       | 0x0800 | Declared `strictfp`; floating-point mode is FP-strict.       |
+| `ACC_SYNTHETIC`    | 0x1000 | Declared synthetic; not present in the source code.          |
+
+​	descriptor_index:
+
+如: String test(String s) -> (Ljava/lang/String)Ljava/lang/String
+
+属性表：
+
+```
+attribute_info {
+    u2 attribute_name_index;
+    u4 attribute_length;
+    u1 info[attribute_length];
+}
+```
+
+属性名：
+
+| Attribute                              | `class` file | Java SE | Section                                                      |
+| -------------------------------------- | ------------ | ------- | ------------------------------------------------------------ |
+| `ConstantValue`                        | 45.3         | 1.0.2   | [§4.7.2](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.2) |
+| `Code`                                 | 45.3         | 1.0.2   | [§4.7.3](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.3) |
+| `Exceptions`                           | 45.3         | 1.0.2   | [§4.7.5](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.5) |
+| `SourceFile`                           | 45.3         | 1.0.2   | [§4.7.10](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.10) |
+| `LineNumberTable`                      | 45.3         | 1.0.2   | [§4.7.12](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.12) |
+| `LocalVariableTable`                   | 45.3         | 1.0.2   | [§4.7.13](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.13) |
+| `InnerClasses`                         | 45.3         | 1.1     | [§4.7.6](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.6) |
+| `Synthetic`                            | 45.3         | 1.1     | [§4.7.8](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.8) |
+| `Deprecated`                           | 45.3         | 1.1     | [§4.7.15](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.15) |
+| `EnclosingMethod`                      | 49.0         | 5.0     | [§4.7.7](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.7) |
+| `Signature`                            | 49.0         | 5.0     | [§4.7.9](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.9) |
+| `SourceDebugExtension`                 | 49.0         | 5.0     | [§4.7.11](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.11) |
+| `LocalVariableTypeTable`               | 49.0         | 5.0     | [§4.7.14](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.14) |
+| `RuntimeVisibleAnnotations`            | 49.0         | 5.0     | [§4.7.16](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.16) |
+| `RuntimeInvisibleAnnotations`          | 49.0         | 5.0     | [§4.7.17](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.17) |
+| `RuntimeVisibleParameterAnnotations`   | 49.0         | 5.0     | [§4.7.18](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.18) |
+| `RuntimeInvisibleParameterAnnotations` | 49.0         | 5.0     | [§4.7.19](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.19) |
+| `AnnotationDefault`                    | 49.0         | 5.0     | [§4.7.22](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.22) |
+| `StackMapTable`                        | 50.0         | 6       | [§4.7.4](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.4) |
+| `BootstrapMethods`                     | 51.0         | 7       | [§4.7.23](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.23) |
+| `RuntimeVisibleTypeAnnotations`        | 52.0         | 8       | [§4.7.20](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.20) |
+| `RuntimeInvisibleTypeAnnotations`      | 52.0         | 8       | [§4.7.21](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.21) |
+| `MethodParameters`                     | 52.0         | 8       | [§4.7.24](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.24) |
 
 #### 七：类加载机制
 
