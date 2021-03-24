@@ -735,7 +735,7 @@ Space losses: 3 bytes internal + 0 bytes external = 3 bytes total
 
 ​	Class文件，是实现平台无关性的基石。
 
-​	Class文件结构：
+##### 	Class文件结构：
 
 ```
 // jvm SE8
@@ -912,39 +912,463 @@ attribute_info {
 
 属性名：
 
-| Attribute                              | `class` file | Java SE | Section                                                      |
-| -------------------------------------- | ------------ | ------- | ------------------------------------------------------------ |
-| `ConstantValue`                        | 45.3         | 1.0.2   | [§4.7.2](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.2) |
-| `Code`                                 | 45.3         | 1.0.2   | [§4.7.3](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.3) |
-| `Exceptions`                           | 45.3         | 1.0.2   | [§4.7.5](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.5) |
-| `SourceFile`                           | 45.3         | 1.0.2   | [§4.7.10](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.10) |
-| `LineNumberTable`                      | 45.3         | 1.0.2   | [§4.7.12](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.12) |
-| `LocalVariableTable`                   | 45.3         | 1.0.2   | [§4.7.13](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.13) |
-| `InnerClasses`                         | 45.3         | 1.1     | [§4.7.6](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.6) |
-| `Synthetic`                            | 45.3         | 1.1     | [§4.7.8](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.8) |
-| `Deprecated`                           | 45.3         | 1.1     | [§4.7.15](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.15) |
-| `EnclosingMethod`                      | 49.0         | 5.0     | [§4.7.7](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.7) |
-| `Signature`                            | 49.0         | 5.0     | [§4.7.9](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.9) |
-| `SourceDebugExtension`                 | 49.0         | 5.0     | [§4.7.11](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.11) |
-| `LocalVariableTypeTable`               | 49.0         | 5.0     | [§4.7.14](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.14) |
-| `RuntimeVisibleAnnotations`            | 49.0         | 5.0     | [§4.7.16](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.16) |
-| `RuntimeInvisibleAnnotations`          | 49.0         | 5.0     | [§4.7.17](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.17) |
-| `RuntimeVisibleParameterAnnotations`   | 49.0         | 5.0     | [§4.7.18](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.18) |
-| `RuntimeInvisibleParameterAnnotations` | 49.0         | 5.0     | [§4.7.19](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.19) |
-| `AnnotationDefault`                    | 49.0         | 5.0     | [§4.7.22](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.22) |
-| `StackMapTable`                        | 50.0         | 6       | [§4.7.4](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.4) |
-| `BootstrapMethods`                     | 51.0         | 7       | [§4.7.23](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.23) |
-| `RuntimeVisibleTypeAnnotations`        | 52.0         | 8       | [§4.7.20](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.20) |
-| `RuntimeInvisibleTypeAnnotations`      | 52.0         | 8       | [§4.7.21](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.21) |
-| `MethodParameters`                     | 52.0         | 8       | [§4.7.24](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.24) |
+| Attribute                              | `class` file | Java SE | 使用位置           | 描述                                                         | Section                                                      |
+| -------------------------------------- | ------------ | ------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `ConstantValue`                        | 45.3         | 1.0.2   | 字段表             | final定义的常量值                                            | [§4.7.2](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.2) |
+| `Code`                                 | 45.3         | 1.0.2   | 方法表             | java源代码编译后的字节码指令                                 | [§4.7.3](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.3) |
+| `Exceptions`                           | 45.3         | 1.0.2   | 方法表             | 方法抛出的异常                                               | [§4.7.5](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.5) |
+| `SourceFile`                           | 45.3         | 1.0.2   | 类文件             | 源文件名称                                                   | [§4.7.10](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.10) |
+| `LineNumberTable`                      | 45.3         | 1.0.2   | Code属性           | Java源码的行号与字节码行号对应表                             | [§4.7.12](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.12) |
+| `LocalVariableTable`                   | 45.3         | 1.0.2   | Code属性           | 方法局部变量表                                               | [§4.7.13](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.13) |
+| `InnerClasses`                         | 45.3         | 1.1     | 类文件             | 内部类列表                                                   | [§4.7.6](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.6) |
+| `Synthetic`                            | 45.3         | 1.1     | 类、方法表、字段表 | 标识为编译器自动生成                                         | [§4.7.8](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.8) |
+| `Deprecated`                           | 45.3         | 1.1     | 类、方法表、字段表 | 被声明为Deprecated的方法或字段                               | [§4.7.15](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.15) |
+| `EnclosingMethod`                      | 49.0         | 5.0     | 类文件             | 仅当一个类为局部类或匿名类时，这个属性用于标识这个类所在的外围方法 | [§4.7.7](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.7) |
+| `Signature`                            | 49.0         | 5.0     | 类、方法表、字段表 | 记录泛型签名信息，防止泛型擦除后导致签名混乱。               | [§4.7.9](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.9) |
+| `SourceDebugExtension`                 | 49.0         | 5.0     | 类文件             | 为非Java语言编写的代码编译成的字节码文件提供可调试的机制。（JSP） | [§4.7.11](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.11) |
+| `LocalVariableTypeTable`               | 49.0         | 5.0     | 类                 | 使用特征签名代替描述符，为了在引入泛型语法之后能描述泛型参数化类型而添加 | [§4.7.14](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.14) |
+| `RuntimeVisibleAnnotations`            | 49.0         | 5.0     | 类、方法表、字段表 | 为动态注解提供支持，用来指明哪些注解是运行时（进行反射调用）可见的 | [§4.7.16](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.16) |
+| `RuntimeInvisibleAnnotations`          | 49.0         | 5.0     | 类、方法表、字段表 | 与`RuntimeVisibleAnnotations`相反                            | [§4.7.17](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.17) |
+| `RuntimeVisibleParameterAnnotations`   | 49.0         | 5.0     | 方法表             | 与`RuntimeVisibleAnnotations`类似，只能作用于方法参数        | [§4.7.18](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.18) |
+| `RuntimeInvisibleParameterAnnotations` | 49.0         | 5.0     | 方法表             | 与`RuntimeVisibleParameterAnnotations`相反                   | [§4.7.19](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.19) |
+| `AnnotationDefault`                    | 49.0         | 5.0     | 方法表             | 记录注解类元素默认值                                         | [§4.7.22](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.22) |
+| `StackMapTable`                        | 50.0         | 6       | Code属性           | 供新的类型检查器和处理目标方法的局部变量和操作数栈所需要的类型是否匹配 | [§4.7.4](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.4) |
+| `BootstrapMethods`                     | 51.0         | 7       | 类文件             | 保存invokedynamic指令引用的引导方法限定符                    | [§4.7.23](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.23) |
+| `RuntimeVisibleTypeAnnotations`        | 52.0         | 8       | 属性表             | 在类文件、方法、字段、Code中的属性表中，一个可变长度的属性。该属性记录了在相关类文件、方法、字段、Code中使用到的运行时可见注解。 | [§4.7.20](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.20) |
+| `RuntimeInvisibleTypeAnnotations`      | 52.0         | 8       | 属性表             | 与`RuntimeVisibleTypeAnnotations`相反                        | [§4.7.21](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.21) |
+| `MethodParameters`                     | 52.0         | 8       | 方法表             | 方法结构中的参数表中的一个属性，记录方法参数信息             | [§4.7.24](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.24) |
+
+Code属性：
+
+​	结构：
+
+```
+Code_attribute {
+    u2 attribute_name_index;
+    u4 attribute_length;
+    u2 max_stack;
+    u2 max_locals;
+    u4 code_length;
+    u1 code[code_length];
+    u2 exception_table_length;
+    {   u2 start_pc;
+        u2 end_pc;
+        u2 handler_pc;
+        u2 catch_type;
+    } exception_table[exception_table_length];
+    u2 attributes_count;
+    attribute_info attributes[attributes_count];
+}
+```
+
+​	attribute_name_index：属性名称索引，固定为“Code”
+
+​	attribute_length：属性长度，Code属性占用的字节长度-6；6：2（attribute_name_index字节长度） + 4（attribute_length字节长度）
+
+​	max_stack：最大操作数栈深度
+
+​	max_locals：局部变量表所需的存储空间。单位：Slot（32bit）每个Slot可重用。
+
+​	code_length：字节码指令数量
+
+​	code：字节码指令，描述方法的执行逻辑
+
+​	exception_table_length：显式异常表。来表示源码中的“try catch finally”
+
+Exceptions属性：
+
+​	与Code属性平级的属性，来代表方法throws声明的异常
+
+LineNumberTable属性：
+
+​	描述源码行号与字节码行号之间的对应关系
+
+LocalVariableTable属性：
+
+​	描述栈帧中局部变量表中的变量与源码中定义的变量的对应关系。
+
+LocalVariableTypeTable属性：
+
+​	与LocalVariableTable相似，为了能够支持泛型。
+
+SourceFile属性：
+
+​	记录源文件名称。
+
+ConstantValue属性：
+
+​	通知虚拟机自动为静态变量赋值。
+
+InnerClasses属性：
+
+​	记录内部类与外部类之间的关联。
+
+Deprecated属性和Synthetic属性：
+
+​	Deprecated属性用于标识某个类、字段或者方法已不推荐使用。源码中使用：@deprecated
+
+​	Synthetic属性来标识此字段、方法、类是编译器自动生成的。"\<init\>"， 和“\<clinit\>”方法不存在该属性或ACC_SYNTHETIC标志。
+
+StackMapTable属性：
+
+​	位于Code属性的属性表中，该属性会在虚拟机类加载的字节码验证阶段被新类型检查验证器使用。
+
+Signature属性：
+
+​	记录泛型签名信息。因为Java的泛型使用擦除法实现。
+
+BootstrapMethods属性：
+
+​	用于保存invokedynamic指令引用的引导方法限定符。
+
+##### 字节码指令：
+
+​	字节码是以一个字节固定长度的代表某种特定操作含义的数字以及跟随其后的零个或多个参数构成。
+
+java字节码实现由于采用面向操作数栈而不是寄存器的架构，故大多数指令都不包含操作数，只有操作码。
+
+字节码与数据类型：
+
+i代表int类型，l代表long，s代表short，b代表byte，c代表char，f代表float，d代表double，a代表reference。
+
+由于字节码的表示个数有限，不可能都为每个带有操作数的指令定义不同类型的操作码。int，long类型的操作居多，byte，short，char较少。
+
+​	指令分类：
+
+- 加载与存储指令
+
+    加载和存储指令用于将数据在栈帧中的局部变量表和操作数栈之间来回传输，包括：
+
+    将一个局部变量加载到操作栈：iload、iload_\<n\>、lload、lload_\<n\>、fload、fload_\<n\>、dload、dload_\<n\>、aload、aload_\<n\>。
+
+    将一个数值从操作数栈存储到局部变量表：istore、istore_\<n\>、lstore、lstore_\<n\>、fstore、fstore_\<n\>、dstore、dstore_\<n\>、astore、astore_\<n\>。
+
+    将一个常量加载到操作数栈：bipush、sipush、ldc、ldc_w、ldc2_w、aconst_null、iconst_m1、iconst_\<i\>、lconst_\<i\>、fconst_\<i\>、dconst_\<i\>。
+
+    扩充局部变量表的访问索引的指令：wide。
+
+- 运算指令
+
+    运算指令用于对两个操作数栈上的值进行某种特定运算，并把结果重新存入到操作栈顶。大致分为两种：整型、浮点型运算。由于没有直接支持byte、short、char和boolean类型的算术运算，使用int类型指令代替。溢出和除零操作也有不同的行为。
+
+    加法：iadd、ladd、fadd、dadd。
+
+    减法：isub、lsub、fsub、dsub。
+
+    乘法：imul、lmul、fmul、dmul。
+
+    除法：idiv、ldiv、fdiv、ddiv。
+
+    求余：irem、lrem、frem、drem。
+
+    取反：ineg、lneg、fneg、dneg。
+
+    位移：ishl、ishr、iushr、lshl、lshr、lushr。
+
+    按位或：ior、lor。
+
+    按位与：iand、land。
+
+    按位异或：ixor、lxor。
+
+    局部变量自增：iinc。
+
+    比较指令：dcmpg、dcmpl、fcmpg、fcmpl、lcmp。
+
+    整数运算指令中，除了除法、求余出现除数为0会抛出异常外，其他运算都不应该抛出异常。浮点运算要求必须严格遵循IEEE 754规范，即支持非正规浮点数值和逐级下溢的运算规则。浮点运算不允许抛出异常。
+
+- 类型转换指令
+
+    宽化转换直接支持
+
+    窄化转换指令：i2b、i2c、i2s、l2i、f2i、f2l、d2l和d2f。
+
+    浮点窄化转换为整型时的规则：
+
+    如果浮点值为NaN，则结果为0。
+
+    如果浮点值不是无穷大，则向零舍人模式取整，结果如果在目标类型表示范围之内，则，返回该结果。
+
+    否则根据舍入后的结果的符号，返回目标类型的最值。
+
+- 对象创建与访问指令
+
+    创建类实例指令：new
+
+    创建数组的指令：newarray、anewarray、multianewarray。
+
+    访问字段指令：getfield、putfield、getstatic、putstatic。
+
+    把一个数组元素加载到操作数栈的指令：baload、caload、saload、iaload、laload、faload、daload、aaload。
+
+    把一个操作数栈的值存储到数组元素中的指令：bastore、castore、sastore、iastore、lastore、fastore、dastore、aastore。
+
+    获取数组长度的指令：arraylength。
+
+    检查类实例类型的指令：instanceof、checkcast。
+
+- 操作数栈管理指令
+
+    操作数栈管理指令用于直接操作操作数栈的指令。
+
+    将操作数栈的栈顶的一个或两个元素出栈：pop、pop2。
+
+    复制并压栈：dup、dup2、dup_x1、dup2_x1、dup_x2、dup2_x2。
+
+    栈顶元素交换：swap。
+
+- 控制转移指令
+
+    条件分支：ifeq、iflt、ifle、ifne、ifgt、ifge、ifnull、ifnonnull、if_icmpeq、if_icmpne、if_icmplt、if_icmpgt、if_icmple、if_icmpge、if_acmpeq、if_acmpne。
+
+    复合条件分支：tableswitch、lookupswitch。
+
+    无条件分支：goto、goto_w、jsr、jsr_w、ret。
+
+- 方法调用和返回指令
+
+    invokevirtual：调用实例对象的实例方法。
+
+    invokeinterface：调用接口方法时使用，会搜索一个实现了该方法的对象并调用。
+
+    invokespecial：用于调用需要特殊处理的实例方法。如初始化方法、私有方法和父类方法。
+
+    invokestatic：调用类方法。
+
+    invokedynamic：用于在运行时动态解析出的调用点限定符所引用的方法，并执行该方法。
+
+    ireturn、lreturn、freturn、dreturn、areturn。
+
+- 异常处理指令
+
+    athrow：实现显式的抛出的异常操作。
+
+    idiv、ldiv：算术异常抛出的时候。
+
+- 同步指令
+
+    同步方法和用ACC_SYNCHRONIZED访问标志来完成同步。
+
+    同步代码块使用monitorenter和monitorexit指令完成同步。
+
+##### 公有设计与私有实现：
+
+​	JVM规范规定了虚拟机要完成什么语义。至于如何完成不做限制。同时也建议不同的实现有不用的特点和方式。只要遵守规范即可。
 
 #### 七：类加载机制
 
+​	虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型。
 
+​	类加载与卸载的开始流程：加载——》连接【验证——》准备——》解析】——》初始化——》使用——》卸载
+
+初始化：类初始化触发条件有且仅有下列5种方式
+
+	- 当遇到new、getstatic、putstatic、invokestatic，如果类没有进行初始化，则需要先进行初始化。这4条指令对应的代码场景：new关键字实例化对象，读取或设置一个类的静态字段（如果该静态字段被final修饰、已在编译器把结果放入常量池则除外），调用一个类的静态方法。
+	- 使用java.lang.relect包的方法对垒进行反射调用的时候。
+	- 当初始化一个类的时候，如果该类的父类还没有初始化，则需要先触发其父类的初始化。
+	- 当虚拟机启动的时候，先初始化main方法所在的类。
+	- java.lang.invoke.MethodHandle实例解析后的方法句柄（REF_getStatic、REF_putStatic、REF_invokeStatic）所对应的类没有进行过初始化，则需要先初始化。
+
+上述5种条件称为对一个类进行主动引用。除此之外，其他引用方式都不会触发初始化，称为被动引用。
+
+- 子类引用父类的静态变量，触发父类初始化，但子类不会被初始化。
+- 定义一种类型数组T[]，并不会触发对该类型T的初始化。但会触发对名为[xxx.xxxx.T的类型的初始化。这也就是说，每一种数组都是一个新的类型。这种类型由虚拟机自动生成。创建动作由字节码指令newarray触发。
+- 引用一个类的静态常量不会触发对该类的初始化。因为该常量已经在编译期优化到了调用者类的常量池中。等同于两者类不存在联系了。
+
+接口初始化触发条件与类的条件有所不同，在上述5种条件中，当是第三种情况时，接口不要求要初始化一个接口的上层接口，只有在真正使用到的时候才会初始化。
+
+##### 类加载步骤：
+
+1. 加载
+
+    加载阶段要完成3件事：
+
+    1）通过一个类的全限定名来获取定义此类的二进制字节流。
+
+    2）将这个字节流所代表的静态存储结构转化为方法区的运行时数结构。
+
+    3）在内存中生成一个代表这个类的java.lang.Class对象，作为方法区这个类的各种数据的访问接口。
+
+    二进制流的获取途径没限制。除了读取本地Class文件外，还有其他多种途径：
+
+    1）从ZIP包中读取，这种方式是日后JAR、EAR、WAR格式读取的基础。
+
+    2）从网络中读取，这种场景最典型的应用就是Applet。
+
+    3）运行时计算生成，典型的就是动态代理。
+
+    4）其他文件生成，如JSP。
+
+    对于非数组类的加载阶段获取字节流可以使用系统提供的引导类加载器来完成，也可以自定义类加载器去完成。数组类型不能通过类加载器完成，因为该数组是由虚拟机自动创建的类型。
+
+    数组类创建过程：
+
+    1）如果一个数组类型的元素类型为引用类型，则递归加载每种类型。
+
+    2）如果一个数组类型的元素类型不是引用类型，则由引导类加载器负责加载。
+
+    3）数组类的可见性与它的元素类型保持一致。如果元素类型为基本类型，则可见性为public。
+
+    加载阶段完成后，HotSpot会在方法区中生成一个Class对象。
+
+2. 验证
+
+    验证是为了确保字节流包含的信息符合虚拟机的要求，而且二进制信息不一定是有Java源码编译过来的，有可能是通过编辑器编写过来的。所以需要进行二进制信息验证，确保安全。
+
+    验证规则繁杂，不过多描述。大致分为一个阶段：
+
+    1）文件格式验证
+
+    是否以规定的魔数开头。
+
+    版本号是否在本虚拟机的处理范围之内。例如把高版本编译的Class文件交给不兼容的低版本虚拟机加载运行。
+
+    常量池类型是否都被支持。
+
+    CONSTANT_Utf8_info类型常量是否符合UTF8编码格式。
+
+    所有校验通过以后，会把二进制流数据存入方法区中。后面三种验证都不再对二进制流进行访问。
+
+    2）元数据验证
+
+    该阶段来验证字节码描述的信息是否符合规范。
+
+    是否应该有父类。
+
+    是否继承了不合法的类。
+
+    是否实现了父类的抽象方法。
+
+    方法重载是否符合规则。
+
+    3）字节码验证
+
+    该阶段主要验证方法体的语法是否符合规范。
+
+    确保类型转换有效。
+
+    跳转逻辑不能跳出方法之外。
+
+    4）符号引用验证
+
+    该阶段发生在解析阶段，将符号引用转化为直接引用的时候。
+
+    符号引用中是否能通过字符串描述的全限定名找到对应的类。
+
+    符号引用的类、字段、方法的访问性是否可被当前类访问。
+
+3. 准备
+
+    准备阶段是正式为类变量分配内存并设置类变量初始值的阶段（通常）。这些变量使用的内存都会在方法区中分配。变量初始化是对变量对应的内存进行初始化为零值。“通常”的反例就是静态常量会被初始化为对应ConstantValue属性对应的值。
+
+4. 解析
+
+    解析阶段是虚拟机将常量池内的符号引用替换为直接引用的过程。
+
+    对一个符号引用可以进行多次解析，在第一次解析成功后，会缓存该解析结果。如果解析失败，则其他指令对该引用的解析请求也应该受到相同的异常。
+
+    对于invokebynamic指令，一次invokebynamic指令触发的引用解析结果，不会对其他invokebynamic指令解析结果生效。也就是说，其他指令的引用解析都是静态的，不需要等到运行开始前才能解析，可以在完成加载阶段后就开始解析。
+
+5. 初始化
+
+    初始化阶段是通过程序定制的主观计划去初始化类变量和其他资源。即：执行\<clinit\>方法的过程。
+
+    \<clinit\>方法会收集类中所有类变量的赋值动作和静态代码块中的语句并合并起来。按照源代码顺序合并。定义在静态代码块之后的变量可以被静态代码块赋值，但不能访问，但可以访问静态代码块之前定义的变量。
+
+    \<clinit\>方法不需要显式地调用父类构造器，虚拟机来保证先执行父类的\<clinit\>方法。
+
+    先执行父类的\<clinit\>方法，也就意味着父类中的静态代码块优先于子类定义的静态代码块中的复制操作。
+
+    \<clinit\>方法不是必须的。如果一个类没有静态变量，也没有静态代码块，那么编译器可以不为这个类生成\<clinit\>方法。
+
+    接口中不能使用静态代码块，但可以有静态变量初始化的赋值操作。但接口中的\<clinit\>方法不需要执行接口的父类\<clinit\>方法。只有当父接口中定义的变量使用时，父接口才会被初始化。接口的实现类也遵守该规则。
+
+    虚拟机会保证一个类的\<clinit\>方法在多线程环境下被正确的加锁，同步。一个线程执行一个类的初始化，其他线程将会被阻塞，直到第一个线程执行完毕。所以要警惕静态代码块中出现耗时较长的操作。
+
+##### 类加载器：
+
+​	通过一个类的全限定名来获取定义此类的二进制字节流，这个操作不是由虚拟机来完成的，而是交给了应用程序自己决定如何去获取类，这个动作的代码模块称为类加载器。
+
+​	类加载器功能应用：Applet，类层次划分、OSGi、热部署、代码加密等。
+
+​	类与类加载器不是独立存在的。一个类在虚拟机中是否唯一，需要类与类加载器共同确立。只有在同一个类加载器的情况下，类的唯一性才有意义。每个类加载器都有一个类名称空间。
+
+类加载器分类：
+
+1）启动类加载器（Bootstrap ClassLoader）负责加载\<JAVA_HOME\>\lib目录中的或者被-Xbootclasspath参数所指定的路径中的，并且被虚拟机识别的类库加载到内存中。
+
+2）扩展类加载器（Extension ClassLoader）负责加载\<JAVA_HOME\>\lib\ext目录中的，或者被java.ext.dirs系统变量所指定的路径中的所有类库。
+
+3）应用程序类加载器（Application ClassLoader）又叫系统类加载器，负责加载用户类路径（ClassPath）上所指定的类型，如果用户未自定义类加载器，则默认使用该加载器。
+
+上述三种类加载器之间的加载逻辑是父子关系层次结构，这个关系不是以继承结构来实现的，而是使用组合方式。这种关系称为类加载器的双亲委派模型（Parents Delegation MOdel）。
+
+双亲委派模型的工作流程：如果一个类加载器收到一个类加载的请求，首先不会自己去尝试加载这个类，而是把这个请求委派给父类加载器去完成，每个类加载器都是如此。因此所有的类加载请求都会被传递给顶层的启动类加载器中，只有当父类加载器无法完成加载请求时，子加载器才会尝试自己去加载。
+
+双亲委派模型不是一个强制性的约束模型，也就意味着会遭到“破坏”。
+
+1）双亲委派模型在JDK1.2之后才被引入。而类加载器和抽象类java.lang.ClassLoader则在JDK1.0就已经存在。为了兼容，在java.lang.ClassLoader添加了一个新的protected方法findClass()，用来实现双亲委派模型。所以自定义类加载器的时候，不建议覆盖loadClass()方法，而应该去覆盖findClass()方法。
+
+2）双亲委派模型很好解决了基础类的统一问题。但如果基础类依赖于用户代码呢？典型的例子就是JNDI服务。JNDI是Java标准服务，它的代码由启动类加载器去加载，但JNDI的目的就是对资源进行集中管理和查找，他需要调用由独立厂商实现并部署在应用程序的ClassPath下的JNDI接口提供者（SPI，Service Provider Interface）代码，但启动类加载器不可能会加载那的代码。为了解决这个问题，在java.lang.Thread类中定义了一个contextClassLoader字段。通过setContextClassLoader()方法设置类加载器。如果创建线程时未设置，则使用父类线程的contextClassLoader，如果应用程序全局都没有设置过的话，则使用应用类加载器。这时，JNDI就可以调用用户的类加载器去加载用户的代码中的SPI代码了。虽然破坏了双亲委派模型，但也无可奈何，与SPI相关的代码基本都采用这种方式，如：JNDI，JDBC，JCE，JAXB，JBI等。
+
+3）程序动态性的追求。Java模块化技术。典型的就是OSGi。OSGi类加载器不再是双亲外派模型，而是形成一个网状结构。
 
 #### 八：字节码执行引擎
 
+执行引擎是虚拟机最核心的组成部分之一。执行引擎的任务：输入字节码文件，解析字节码，输出结果。但不同的执行引擎实现由不用的方式，有解释执行，有编译执行，也有混合模式执行。
 
+##### 运行时栈帧结构：
+
+​	栈帧是用于支持虚拟机进行方法调用和方法执行的数据结构，它是虚拟机运行时数据区中的虚拟机栈的栈元素。栈帧存储了方法的局部变量、操作栈、动态连接、方法返回地址等信息。和一些额外的附加信息。栈帧的大小不受运行时影响，因为在编译期已经确定了。
+
+- 局部变量表
+
+    存储了一个方法的方法参数和局部变量，除了long，double外占用2个Slot外，其他数据占用1个Slot。虽然long、double占用2个Slot，读写两个Slot不是一个原子操作，但是因为局部变量是线程私有的，因此不会引发线程安全问题。如果执行一个实例方法，则局部变量表的第一个Slot为this。为了节省空间，Slot可以重用。
+
+    ```java
+    package com.cwj.vm;
+    
+    /**
+     * @author: Chenwujie
+     * @date: 2021-03-24 15:07
+     */
+    public class SlotTest {
+        public static void main(String[] args) {
+            {
+                byte[] s = new byte[64*1024*1024];
+            }
+            int a = 0;
+            System.gc();
+        }
+    }
+    
+    ```
+
+    局部变量不会有准备阶段。意味着不会被赋初始值。
+
+- 操作数栈
+
+    与局部变量表结构相同，也是栈，最大栈深度也已确定。当方法开始执行时，栈为空，随着各个指令的执行，会有数据被入栈，出栈。
+
+    虽然局部变量表与操作数栈是独立的，但是在实现时，会做一些优化，令两个栈帧重叠。下面的栈帧的操作数栈与上面的栈帧的局部变量表重叠，通用一部分数据，减少数据传递。
+
+- 动态连接
+
+    每个栈帧都不找韩一个只想运行时常量池中该栈帧所属方法的引用，持有这个引用是为了支持方法调用过程的动态连接。方法调用指令是以常量池中指向方法的符号引用作为参数。这些符号引用一部分会在类加载阶段或者第一次使用的时候就转化为直接引用，这种转化称为静态解析。另外一部分是在每一次运行时转化为直接引用。这部分则称为动态连接。
+
+- 方法返回地址
+
+    方法推出方式有两种，一种是执行引擎遇到方法返回的字节码指令，称为正常完成出口；另一种是执行过程中遇到了异常，称为异常完成出口，并不会给上层调用者返回任何返回值的。正常退出时，栈帧中会保存调用者的PC计数器作为返回地址。异常退出时，通过异常处理器表来确定，栈帧中不保存这部分信息。
+
+    方法退出的过程就是栈帧出栈的过程。可能的执行操作有：恢复栈帧的局部变量表和操作数栈，把返回值压入调用者栈帧的操作数栈，调整PC计数器以指向方法调用指令后面的一条指令等。
+
+- 附加信息
+
+    增加一些自定义的信息。例如debug相关信息等。
+
+##### 方法调用：
+
+方法
 
 #### 九：早期编译优化（JAVAC）
 
