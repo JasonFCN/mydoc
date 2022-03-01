@@ -405,7 +405,44 @@ docker stop acs && docker cp ~/jars/industrial-park-acs-1.0.0.jar acs:/myjars/ap
 curl localhost:8080/**/
 ```
 
+#### docker安装rabbitMQ
 
+```shell
+docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 -v /home/ubuntu/data:/var/lib/rabbitmq --hostname myRabbit -e RABBITMQ_DEFAULT_VHOST=my_vhost  -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=admin rabbitmq
+# -p 5672:5672 暴露应用访问端口
+# -p 15672:15672 暴露web访问端口
+# --hostname myRabbit 设置主机名
+# RABBITMQ_DEFAULT_VHOST=my_vhost 设置MQ 虚拟机名称
 
+```
 
+##### 访问服务后台管理界面：
+
+先在容器中运行命令：rabbitmq-plugins enable rabbitmq_management 开启管理功能
+
+访问地址：ip:15672
+
+##### 应用接入MQ:
+
+```yaml
+spring:
+  rabbitmq:
+    host: 110.42.184.35
+    username: admin
+    password: ldk8sdjk18i2
+    port: 5672
+    virtual-host: my_vhost
+```
+
+docker 部署maven私服
+
+```shell
+sudo docker run -d --name nexus3 --restart=always \
+    -p 8081:8081 \
+    -p 5000:5000 \
+    -p 5001:5001 \
+    -e INSTALL4J_ADD_VM_PARAMS="-Xms512m -Xmx512m -XX:MaxDirectMemorySize=512m" \
+    --mount src=nexus-data,target=/nexus-data \
+    sonatype/nexus3
+```
 
