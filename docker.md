@@ -200,7 +200,7 @@ docker inspect dbaa
                 "Destination": "/usr/local/tomcat/logs",
                 "Mode": "",
                 "RW": true,
-                "Propagation": "rprivate"
+                "Propagation": "private"
             }
         ],
 
@@ -242,7 +242,7 @@ docker run -d --name mysql01 -p 3306:3306 -v /home/jason/mysql/data:/var/lib/mys
 ```shell
 FROM ubuntu						# 以ubuntu为基础
 
-VOLUME ["volume01", "vomume02"]	# 挂载数据卷
+VOLUME ["volume01", "volume02"]	# 挂载数据卷
 
 CMD echo "balabala"				# 输出 。。
 
@@ -273,7 +273,7 @@ fee5db0ff82f: Pull complete
 Digest: sha256:747d2dbbaaee995098c9792d99bd333c6783ce56150d1b11e333bbceed5c54d7
 Status: Downloaded newer image for ubuntu:latest
  ---> 1d622ef86b13
-Step 2/3 : CMD echo "hello myubuntu"
+Step 2/3 : CMD echo "hello my ubuntu"
  ---> Running in fe867e7ea3fb
 Removing intermediate container fe867e7ea3fb
  ---> 0f1fa0c19a23
